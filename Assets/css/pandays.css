@@ -1,0 +1,143 @@
+:root {
+    --main-bg-color: #2C2727;
+    --main-text-color: #D9D9D9;
+    --second-text-color: #2F0EF5;
+    --second-bg-color: #FF9900;
+}
+body::before {
+    display: block;
+    content: '';
+    height: 60px;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.nav-item{
+    margin-right: 60px;
+}
+.navbarHeight{
+    background-color: var(--main-text-color);
+}
+
+.btn{
+    background-color: var(--second-bg-color);
+    width: 6rem;
+}
+
+.btn:hover{
+    background-color: var(--main-bg-color);
+    color: var(--second-bg-color);
+    width: 6rem;
+}
+.btn2{
+    background-color: var(--second-bg-color);
+    width: 15rem;
+    height: 3rem;
+    border-radius: 8px;
+    font-size: 20px;
+    color: var(--main-bg-color);
+}
+
+.builders{
+    color: var(--second-bg-color);
+}
+.head{
+    background-color: var(--main-bg-color);
+    
+}
+.nav-link{
+    color: var(--main-bg-color);
+}
+.nav-link:hover{
+    color: var(--second-bg-color);
+    color: var(--second-bg-color);
+    font-weight: bold;
+}
+.img-fluid{
+    padding-bottom: 3rem;
+    margin-top: 5rem;
+    margin-right: 3rem;
+    padding-top: 22px;
+}
+.cursor{
+    cursor: pointer;
+}
+
+/* section css */
+.jobs{
+    background-color: var(--main-bg-color);
+    max-width: 30rem;
+    height: 11.2rem;
+}
+.jobsIMG img{
+    max-width: 12rem;
+    height: 10rem;
+}
+.info{
+    color: var(--second-bg-color);
+}
+.btn-view{
+    margin-top: 8.8rem;
+}
+.btn-view button{
+    border-radius: 3px;
+    width: 6rem;
+    background-color: var(--second-bg-color);
+    color: var(--main-bg-color);
+    font-weight: bold;
+}
+
+/* footer css */
+.footer{
+    background-color: var(--main-bg-color);
+}
+.f-text{
+    color: var(--second-bg-color);
+}
+
+
+/* register modal css */
+.modal{
+    padding-top: 100px;
+    padding-right: 25px;
+}
+.myform{
+    padding: 2em;
+    max-width: 100%;
+    color: var(--second-bg-color);
+    background-color: var(--main-bg-color);
+}
+.modal-body{
+    padding: 0px;
+}
+.btn-close{
+    position: absolute;
+    right: 0;
+    padding: 10px;
+}
+.modal-content{
+    width: 70%;
+    margin: 0px auto;
+}
+.reg{
+    font-size: 2.3em;
+    font-weight: bold;
+    padding: 0;
+}
+.form-control{
+    padding-top: 0;
+}
+.btn3{
+    background-color: var(--second-bg-color);
+    color: var(--main-bg-color);
+    width: 5rem;
+    height: 2rem;
+    border-radius: 5px;
+}
+.btn-form{
+    margin-inline-start: 7.5rem;
+}
+

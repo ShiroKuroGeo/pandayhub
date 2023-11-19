@@ -1,0 +1,109 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* navbar */
+/* .navbar{
+    opacity: 0.5;
+} */
+.navbar{
+    background-color: #D9D9D9;
+}
+.nav-item{
+    margin-right: 5px;
+}
+.nav-item .nav-link{
+    color: black;
+    margin-left: 90px;
+}
+.reg-btn{
+    border-radius: 3px;
+    width: 7rem;
+    font-weight: bold;
+    background-color: #FF9900;
+}
+.log-btn{
+    border-radius: 3px;
+    width: 7rem;
+    font-weight: bold;
+    background-color: #FF9900;
+}
+
+/* section css */
+.para .cabin li{
+    font-size: 10px;
+    text-decoration: none;
+}
+
+.navbarHeight{
+    height: 75px;
+}
+.house{
+    padding: 7rem;
+}
+.house .colonial{
+    margin-left: 7px;
+}
+.house .cabin{
+    margin-right: 7px;
+}
+.build{
+    font-size: 5rem;
+    background-color: #2C2727;
+    max-width: 30rem;
+    border-radius: 3px;
+    margin-inline-start: 10px;
+}
+.future{
+    font-size: 5rem;
+    max-width: 30rem;
+    color: #FF9900;
+}
+
+
+/* register modal css */
+.modal{
+    padding-top: 80px; 
+}
+.myform{
+    padding: 2em;
+    max-width: 100%;
+    background-color: #2C2727;
+    color: #FF9900;
+}
+.modal-body{
+    padding: 0px;
+}
+.btn-close{
+    position: absolute;
+    right: 0;
+    padding: 10px;
+}
+.modal-content{
+    width: 70%;
+    margin: 0px auto;
+}
+.reg{
+    font-size: 2.3em;
+    font-weight: bold;
+    padding: 0;
+}
+.form-control{
+    padding-top: 0;
+}
+
+.footer{
+    color: #2C2727;
+}
+.btn-modal{
+    background-color: #FF9900;
+    color: #2C2727;
+}
+
+/* carousel Image*/
+#carouselImage{
+    height: 55vh;
+    width: 100vw;
+    margin-top: 4.7rem;
+}

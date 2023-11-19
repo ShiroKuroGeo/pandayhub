@@ -1,0 +1,74 @@
+body::before {
+    display: block;
+    content: '';
+    height: 60px;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* navbar */
+/* .navbar{
+    opacity: 0.5;
+} */
+.nav-item{
+    margin-right: 5px;
+}
+.nav-item .nav-link{
+    color: white;
+    margin-right: 90px;
+}
+/* showcase */
+/* section */
+.wrapper{
+    background-color: black;
+    height: 70vh;
+    width: 60vw;
+}
+.cont-wrap{
+    border: 2px solid black;
+    padding-top: 21px;
+    background-color: #e7b30a;
+    border-radius: 15px;
+    width: 40vw;
+    height: 23vh;
+    margin-left: 8.5rem;
+}
+.image{
+    border-radius: 20px;
+    margin-bottom: 12px;
+}
+.req-btn{
+    padding-top: 2.4rem;
+}
+
+/* register modal css */
+.modal{
+    padding-top: 80px; 
+}
+.myform{
+    padding: 2em;
+    max-width: 100%;
+    color: white;
+}
+.modal-body{
+    padding: 0px;
+}
+.btn-close{
+    position: absolute;
+    right: 0;
+    padding: 10px;
+}
+.modal-content{
+    width: 70%;
+    margin: 0px auto;
+}
+.reg{
+    font-size: 2.3em;
+    font-weight: bold;
+    padding: 0;
+}
+.form-control{
+    padding-top: 0;
+}

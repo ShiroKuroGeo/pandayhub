@@ -1,0 +1,116 @@
+:root {
+    --main-bg-color: #2C2727;
+    --main-text-color: #D9D9D9;
+    --second-text-color: #2F0EF5;
+    --second-bg-color: #FF9900;
+}
+
+body::before {
+    display: block;
+    content: '';
+    height: 60px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.nav-item {
+    margin-right: 60px;
+}
+
+.btn:hover{
+    background-color: var(--main-bg-color);
+    color: var(--second-bg-color);
+    width: 6rem;
+}
+
+.navbarHeight {
+    background-color: var(--main-text-color);
+}
+
+.btn {
+    background-color: var(--second-bg-color);
+    width: 6rem;
+
+}
+
+.btn2 {
+    background-color: var(--second-bg-color);
+    width: 15rem;
+    height: 3rem;
+    border-radius: 8px;
+    font-size: 20px;
+    color: var(--main-bg-color);
+}
+
+.builders {
+    color: var(--second-bg-color);
+}
+
+.head {
+    background-color: var(--main-bg-color);
+
+}
+
+.nav-link {
+    color: var(--main-bg-color);
+}
+
+.nav-link:hover {
+    color: var(--second-bg-color);
+    font-weight: bold;
+}
+
+.img-fluid {
+    padding-bottom: 3rem;
+    margin-top: 5rem;
+    margin-right: 3rem;
+    padding-top: 22px;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.data{
+    background-color: var(--main-bg-color);
+    color: var(--second-bg-color);
+}
+.nav-link2{
+    text-decoration: none;
+    color: var(--second-bg-color);
+}
+
+
+
+
+
+
+/* html,
+body,
+.intro {
+    height: 100%;
+}
+
+table td,
+table th {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.card {
+    border-radius: .5rem;
+}
+
+.table-scroll {
+    border-radius: .5rem;
+}
+
+thead {
+    top: 0;
+    position: sticky;
+} */
