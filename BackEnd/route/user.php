@@ -59,6 +59,18 @@
         }
         echo $back->updateInformation($_SESSION['userId'], $picture, $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['phn1'], $_POST['phn2']);
     }   
+    
+    function applynow(){
+        $back = new user();
+
+        echo $back->applynow($_SESSION['userId'],  $_POST['job_poser']);
+    }   
+
+    function applicants(){
+        $back = new user();
+
+        echo $back->applicants($_SESSION['userId']);
+    }   
 
     
 ?>

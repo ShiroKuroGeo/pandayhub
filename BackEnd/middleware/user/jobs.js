@@ -9,6 +9,7 @@ createApp({
             job_payment: '',
             job_require_exp: '',
             getJobs: [],
+            selectedIdJob: [],
         }
     },
     methods: {
@@ -24,7 +25,7 @@ createApp({
             data.append("job_payment", vue.job_payment);
             axios.post('../../Backend/route/user.php', data)
                 .then(function (r) {
-                    if(r.data == 200){
+                    if (r.data == 200) {
                         alert('Successfully added')
                     }
                 });
@@ -35,7 +36,7 @@ createApp({
             data.append("METHOD", "jobs");
             axios.post('../../Backend/route/user.php', data)
                 .then(function (r) {
-                    for(var v of r.data){
+                    for (var v of r.data) {
                         vue.getJobs.push({
                             job_id: v.job_id,
                             job_poser: v.job_poser,
@@ -51,7 +52,44 @@ createApp({
                         })
                     }
                 });
-        }
+        },
+        selectedJob(job_id) {
+            const vue = this;
+            var data = new FormData();
+            data.append("METHOD", "jobs");
+            axios.post('../../Backend/route/user.php', data)
+                .then(function (r) {
+                    vue.selectedIdJob = [];
+
+                    for (var v of r.data) {
+                        if (v.job_id == job_id) {
+                            vue.selectedIdJob.push({
+                                job_id: v.job_id,
+                                job_poser: v.job_poser,
+                                picture: v.picture,
+                                job_title: v.job_title,
+                                job_project: v.job_project,
+                                job_location: v.job_location,
+                                job_require_exp: v.job_require_exp,
+                                job_payment: v.job_payment,
+                                job_status: v.job_status,
+                                created_at: v.created_at,
+                                updated_at: v.updated_at,
+                            })
+                        }
+                    }
+                });
+        },
+        applyNow(job_poser) {
+            const vue = this;
+            var data = new FormData();
+            data.append("METHOD", "applynow");
+            data.append("job_poser", job_poser);
+            axios.post('../../Backend/route/user.php', data)
+                .then(function (r) {
+                    alert(r.data);
+                });
+        },
     },
     created: function () {
         this.jobs();

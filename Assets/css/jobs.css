@@ -94,29 +94,16 @@ body::before {
 }
 
 
-
-/* register modal css */
-.modal{
-    padding-top: 50px;
-    padding-right: 25px;
-}
 .myform{
     padding: 2em;
     max-width: 100%;
     color: var(--second-bg-color);
     background-color: var(--main-bg-color);
 }
-.modal-body{
-    padding: 0px;
-}
 .btn-close{
     position: absolute;
     right: 0;
     padding: 10px;
-}
-.modal-content{
-    width: 90%;
-    margin: 0px auto;
 }
 .reg{
     font-size: 2.3em;

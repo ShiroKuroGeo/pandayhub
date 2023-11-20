@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+    session_start();
+?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,7 +40,7 @@
         <!-- modal -->
         <div class="modal fade mt-1" id="jobs">
             <div class="modal-dialog d-flex modal-dialog-center">
-                <div class="modal-content">
+                <div class="modal-content" style="background-color: #2C2727">
                     <div class="modal-body">
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         <div class="myform">
@@ -97,13 +99,34 @@
                                 <li class="list-group-item">{{j.job_require_exp}}</li>
                                 <li class="list-group-item">{{j.job_payment}}</li>
                             </ul>
-                            <div class="card-body d-flex justify-content-between">
-                                <button class="btn btn-md col-12">View More</button>
+                            <div :class="j.job_poser === <?php echo $_SESSION['userId']?> ? 'card-footer d-flex justify-content-between' : 'card-footer visually-hidden d-flex justify-content-between'">
+                                <button class="btn btn-md col-12" @click="selectedJob(j.job_id)" data-bs-toggle="modal" data-bs-target="#viewMore">View More</button>
                             </div>
                         </div>
                     </div>
-
-
+                    <!-- Modal -->
+                    <div class="modal fade" id="viewMore" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="card text-center" v-for="j of selectedIdJob">
+                                        <div class="card-header">
+                                            {{j.job_title}}
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">This project is {{j.job_project}}</h5>
+                                            <p class="card-text">Location: {{j.job_location}}</p>
+                                            <div class="card-link">Payments: {{j.job_payment}}</div>
+                                            <div class="card-link">Requirement: {{j.job_require_exp}}</div>
+                                        </div>
+                                        <div :class="j.job_poser === <?php echo $_SESSION['userId']?> ? 'card-footer' : 'card-footer visually-hidden'" >
+                                            <button class="btn btn-md" @click="applyNow(j.job_poser)">Apply Now</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

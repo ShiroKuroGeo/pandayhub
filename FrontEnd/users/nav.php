@@ -32,7 +32,7 @@
                         Logout
                     </a>
                     <ul class="dropdown-menu me-5" aria-labelledby="dropdownMenuLink">
-                        <li><a class="cursor dropdown-item me-5" href="../logout.php" id="logout">Logout</a></li>
+                        <li><a class="cursor dropdown-item me-5" href="../../BackEnd/logout.php" id="logout">Logout</a></li>
                         <li><a class="cursor dropdown-item me-5 " href="/pandayhub/FrontEnd/users/profiles.php" id="post">Profile</a></li>
                         <li><a class="cursor dropdown-item me-5 " id="request">Posts</a></li>
                     </ul>

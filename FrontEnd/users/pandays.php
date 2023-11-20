@@ -73,11 +73,11 @@
                     <div class="jobs col-4 me-2 mb-1 rounded" v-for="p of pandays">
                         <div class="row">
                             <!-- <div class="jobsIMG col-md-5 mt-2"> -->
-                                <img class="col-4 p-2 rounded" style="width: 160px;" :src="'/pandayhub/assets/img/' + p.profile" alt="">
+                                <img class="col-4 p-2 rounded" style="max-width: 140px;" :src="'/pandayhub/assets/img/' + p.profile" alt="">
                             <!-- </div> -->
                             <div class="info col-md-5 p-0">
                                 <h6 class="mt-2 text-capitalize">Name: {{p.lastname}}, {{ p.firstname }}</h6>
-                                <h6 class="mt-3 text-capitalize">Location: {{p.location}}</h6>
+                                <h6 class="mt-3 text-capitalize">Location: {{p.location}}</h6>  
                                 <h6 class="mt-3 text-capitalize">Skill: {{p.skill}}</h6>
                                 <h6 class="mt-2 text-capitalize">Level: {{p.level}}</h6>
                             </div>
