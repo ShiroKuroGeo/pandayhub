@@ -16,7 +16,7 @@
     <div id="petStore">
 
         <?php
-            include('nav.php')
+        include('nav.php')
         ?>
 
         <section class="head text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
@@ -42,7 +42,7 @@
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         <div class="myform">
                             <h1 class="reg text-center">CLIENT FORM</h1>
-                            
+
                             <div class="mb-3 mt-3">
                                 <label for="Email" class="me-5 fw-bold">Panday Skill</label>
                                 <input type="Email" v-model="Panday_skill" class="form-control" />
@@ -65,32 +65,56 @@
             </div>
         </div>
 
-         <!-- profiling -->
-        <section style="overflow-y: scroll; height: 90vh" >
+        <!-- profiling -->
+        <section style="overflow-y: scroll; height: 90vh">
             <div class="container-fluid my-3">
                 <div class="row d-flex px-3">
 
-                    <div class="jobs col-4 me-2 mb-1 rounded" v-for="p of pandays">
+                    <div class="card mb-3 ms-1" style="max-width: 440px;" v-for="p of pandays">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img class="col-4 p-2 rounded w-100 h-100" :src="'/pandayhub/assets/img/' + p.profile" alt="">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h6 class="mt-2 text-capitalize">Name: {{p.lastname}}, {{ p.firstname }}</h6>
+                                    <h6 class="mt-3 text-capitalize">Location: {{p.location}}</h6>
+                                    <h6 class="mt-3 text-capitalize">Skill: {{p.skill}}</h6>
+                                    <h6 class="mt-2 text-capitalize">Level: {{p.level}}</h6>
+
+                                    <p class="card-text d-flex">
+                                        <button class="btn btn-sm ms-2">View</button>
+                                        <button class="btn btn-sm ms-2">Hire</button>
+                                        <button class="btn btn-sm ms-2">Message</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="jobs col-4 me-2 mb-1 rounded">
                         <div class="row">
-                            <!-- <div class="jobsIMG col-md-5 mt-2"> -->
-                                <img class="col-4 p-2 rounded" style="max-width: 140px;" :src="'/pandayhub/assets/img/' + p.profile" alt="">
-                            <!-- </div> -->
+                            <div class="jobsIMG col-md-5 mt-2">
+                            <img class="col-4 p-2 rounded" style="max-width: 140px;" :src="'/pandayhub/assets/img/' + p.profile" alt="">
+                            </div>
                             <div class="info col-md-5 p-0">
                                 <h6 class="mt-2 text-capitalize">Name: {{p.lastname}}, {{ p.firstname }}</h6>
-                                <h6 class="mt-3 text-capitalize">Location: {{p.location}}</h6>  
+                                <h6 class="mt-3 text-capitalize">Location: {{p.location}}</h6>
                                 <h6 class="mt-3 text-capitalize">Skill: {{p.skill}}</h6>
                                 <h6 class="mt-2 text-capitalize">Level: {{p.level}}</h6>
                             </div>
                             <div class="btn-view col-md-3">
                                 <button class="btn btn-sm">Message</button>
+                                <button class="btn btn-sm">Message</button>
+                                <button class="btn btn-sm">Message</button>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>
 
-    <!-- footer -->
+        <!-- footer -->
         <footer class="footer text-center text-lg-start mt-5">
             <!-- Copyright -->
             <div class="container-fluid">
