@@ -112,3 +112,9 @@ body{
         margin-left: -15rem;
     }
 }
+
+
+.textMain{
+    color: var(--main-bg-color) !important
+}
+

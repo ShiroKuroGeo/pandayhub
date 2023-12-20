@@ -8,6 +8,7 @@ createApp({
             job_project: '',
             job_payment: '',
             job_require_exp: '',
+            searchLoc: '',
             getJobs: [],
             selectedIdJob: [],
         }
@@ -46,6 +47,7 @@ createApp({
                             job_location: v.job_location,
                             job_require_exp: v.job_require_exp,
                             job_payment: v.job_payment,
+                            projectType: v.projectType,
                             job_status: v.job_status,
                             created_at: v.created_at,
                             updated_at: v.updated_at,
@@ -67,6 +69,7 @@ createApp({
                                 job_id: v.job_id,
                                 job_poser: v.job_poser,
                                 picture: v.picture,
+                                name: v.firstname +', '+v.lastname,
                                 job_title: v.job_title,
                                 job_project: v.job_project,
                                 job_location: v.job_location,
@@ -93,5 +96,14 @@ createApp({
     },
     created: function () {
         this.jobs();
+    },
+    computed: {
+        searchJob(){
+            if(!this.searchLoc){
+                return this.getJobs;
+            }
+
+            return this.getJobs.filter(pr => pr.job_location.toLowerCase().includes(this.searchLoc.toLowerCase()));
+        }
     }
 }).mount('#jobshub')

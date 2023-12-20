@@ -27,6 +27,9 @@
                 <li class="nav-item <?php echo $_SERVER['SCRIPT_NAME'] == '/pandayhub/frontend/users/applications.php' ? 'fw-bold' : '' ?>">
                     <a href="/pandayhub/frontend/users/applications.php" class="nav-link">APPLICATIONS</a>
                 </li>
+                <li class="nav-item <?php echo $_SERVER['SCRIPT_NAME'] == '/pandayhub/frontend/users/hireds.php' ? 'fw-bold' : '' ?>">
+                    <a href="/pandayhub/frontend/users/hireds.php" class="nav-link">HIRED</a>
+                </li>
                 <li class="dropdown">
                     <a class="btn dropdown-toggle mt-1 btn-sm fw-bold ms-5" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                         Logout
@@ -34,7 +37,7 @@
                     <ul class="dropdown-menu me-5" aria-labelledby="dropdownMenuLink">
                         <li><a class="cursor dropdown-item me-5" href="../../BackEnd/logout.php" id="logout">Logout</a></li>
                         <li><a class="cursor dropdown-item me-5 " href="/pandayhub/FrontEnd/users/profiles.php" id="post">Profile</a></li>
-                        <li><a class="cursor dropdown-item me-5 " id="request">Posts</a></li>
+                        <li><a class="cursor dropdown-item me-5 " href="/pandayhub/FrontEnd/users/post.php" id="request">Posts</a></li>
                     </ul>
                 </li>
             </ul>

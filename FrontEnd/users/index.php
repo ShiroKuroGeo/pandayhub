@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <?php
 session_start();
 
@@ -5,109 +7,94 @@ if (!isset($_SESSION['userId'])) {
     header('location:./index.php');
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/9a0808c715.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
-    <link rel="stylesheet" href="/pandayhub/assets/css/index2.css">
+    <meta charset="utf-8">
+    <title>PandayHub</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../../Assets/assets/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../../Assets/assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../../Assets/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../Assets/assets/css/style.css" rel="stylesheet">
 </head>
+
 <body>
-<div id="petStore">
-    
-   <?php
-        include('nav.php')
-   ?>
-
-
-    <section class="head text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
-        <div class="container">
-            <div class="d-sm-flex justify-content-between">
-                <div class="mt-5" style="max-width: 550px;">
-                    <h1 class="pt-3 mt-5">GET YOUR <span class="builders fw-bold">BUILDERS </span>NOW</h1>
-                    <p class="lead my-4 mb-5 fw-bold">
-                        The  Contruction of is a testament to the hardwok and expertise of the team, resulting in a sturdy and visually and stunning structure
-                    </p>
+    <div class="container-fluid bg-white p-0" id="jobshub">
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <img src="/pandayhub/assets/img/logo.png" class="img-fluid d-none d-sm-block" width="100" height="160">
+        </div>
+        <?php
+        include('sidebar.php');
+        ?>
+        <div class="container-xxl py-5">
+            <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
+                <div class="container">
+                    <div class="row g-2">
+                        <div class="col-md-10">
+                            <div class="row g-2">
+                                <div class="col-12">
+                                    <input type="search" class="form-control " placeholder="Search for location" v-model="searchLoc" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-dark border-0 w-100" disabled>Search</button>
+                        </div>
+                    </div>
                 </div>
-                <img src="/pandayhub/assets/img/secondary.png" class="img-fluid d-none d-sm-block" width="400" height="360">
+            </div>
+            <div class="container">
+                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Job Listing</h1>
+                <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane fade show p-0 active">
+                            <div class="job-item p-4 mb-4" v-for="j of searchJob">
+                                <div class="row g-4">
+                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid border rounded" :src="'/pandayhub/Assets/img/' + j.picture" alt="" style="width: 80px; height: 80px;">
+                                        <div class="text-start ps-4">
+                                            <h5 class="mb-3">{{j.job_title}}</h5>
+                                            <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{j.job_location}}</span>
+                                            <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>{{j.projectType}}</span>
+                                            <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>{{j.job_payment}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                        <div :class="j.job_poser != <?php echo $_SESSION['userId'] ?> ? 'd-flex mb-3' : 'd-flex mb-3 visually-hidden'">
+                                            <a class="btn btn-primary" @click="applyNow(j.job_poser)">Apply Now</a>
+                                        </div>
+                                        <div :class="j.job_poser == <?php echo $_SESSION['userId'] ?> ? 'd-flex mb-3' : 'd-flex mb-3 visually-hidden'">
+                                            <button class="btn btn-primary" disabled>Apply Now</button>
+                                        </div>
+                                        <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>{{j.job_require_exp}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="btn btn-primary py-3 px-5" href="jobs.php">Browse More Jobs</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section class="pandays">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../Assets/assets/lib/wow/wow.min.js"></script>
+    <script src="../../Assets/assets/lib/easing/easing.min.js"></script>
+    <script src="../../Assets/assets/lib/waypoints/waypoints.min.js"></script>
+    <script src="../../Assets/assets/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../../Assets/assets/js/main.js"></script>
+    <script src="/pandayhub/BackEnd/vue/axios.js"></script>
+    <script src="/pandayhub/BackEnd/vue/vue.3.js"></script>
+    <script src="/pandayhub/BackEnd/middleware/user/jobs.js"></script>
+</body>
 
-        <div class="container">
-            <div class="row">
-                <div class="drywall col-lg-4 justify-content-center align-items-center">
-                    <div class="mt-3">
-                        <img src="/pandayhub/assets/img/drywall.jpg" width="322" height="200">
-                    </div>
-                    <div class="description">
-                        <h1 class="text-center">DRY WALL</h1>
-                        <p class="text-center ms-2">
-                            Drywall is a popular choice for Panday due to its ease of installation and affordability. It is also fire-resistant and provides sound insulation. It can be cut to size and shape, making it easy to install around corners, curves, and other irregular surfaces.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="roofing col-lg-4 justify-content-center align-items-center">
-                    <div class="mt-3">
-                        <img src="/pandayhub/assets/img/roofing.jpg" width="322" height="200">
-                    </div>
-                    <div class="description">
-                        <h1 class="text-center">ROOFING</h1>
-                        <p class="text-center ms-2">
-                            Proper installation and maintenance of roofing materials are critical to ensure the longevity and effectiveness of the roof in protecting the building and its occupants. Regular inspections and repairs can help prevent damage and extend the life of the roof.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="flooring col-lg-4 justify-content-center align-items-center">
-                    <div class="mt-3">
-                        <img src="/pandayhub/assets/img/flooring.jpg" width="322" height="200">
-                    </div>
-                    <div class="description">
-                        <h1 class="text-center">FLOORING</h1>
-                        <p class="text-center ms-2">
-                            Flooring installation typically involves preparing the subfloor, measuring and cutting the flooring material to fit the space, and securing it in place using adhesives, nails, or other fasteners.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </section>
-
-    <!-- footer -->
-    <footer class="footer text-center text-lg-start mt-5">
-        <!-- Copyright -->
-        <div class="container-fluid">
-            <div class="row">
-                <div class="text-center p-3 col-md-2" style="background-color: rgba(0, 0, 0, 0.2);">
-                    <p><a href="" class="f-text fw-bold">James Michael Guevarra</a></p>
-                  </div>
-                  <div class="text-center p-3 col-md-8" style="background-color: rgba(0, 0, 0, 0.2);">
-                    <p><a href="" class="f-text fw-bold">Jovet Quillan</a></p>
-                  </div>
-                  <div class="text-center p-3 col-md-2" style="background-color: rgba(0, 0, 0, 0.2);">
-                    <p><a href="" class="f-text fw-bold">Jose Jeff Jumao-as</a></p>
-                  </div>
-            </div>
-        </div>
-        <!-- Copyright -->
-    </footer>
-</div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-</body> 
-    <script src="BackEnd/vue/axios.js"></script>
-    <script src="BackEnd/vue/vue.3.js"></script>
-    <script src="BackEnd/vue/nav.js"></script>
-    <script src="BackEnd/middleware/authentication.js"></script>
 </html>

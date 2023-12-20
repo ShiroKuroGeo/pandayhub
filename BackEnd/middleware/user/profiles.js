@@ -22,24 +22,24 @@ createApp({
 
                     for (var v of r.data) {
                         vue.firstname = v.firstname,
-                        vue.lastname = v.lastname,
-                        vue.email = v.email,
-                        vue.phn1 = v.phoneNumber,
-                        vue.phn2 = v.phoneNumber2,
-                        vue.getUserProfile.push({
-                            userId: v.userId,
-                            profile: v.profile,
-                            firstname: v.firstname,
-                            lastname: v.lastname,
-                            email: v.email,
-                            password: v.password,
-                            phoneNumber: v.phoneNumber,
-                            phoneNumber2: v.phoneNumber2,
-                            status: v.status,
-                            role: v.role,
-                            create_at: v.create_at,
-                            updated_at: v.updated_at,
-                        })
+                            vue.lastname = v.lastname,
+                            vue.email = v.email,
+                            vue.phn1 = v.phoneNumber,
+                            vue.phn2 = v.phoneNumber2,
+                            vue.getUserProfile.push({
+                                userId: v.userId,
+                                profile: v.profile,
+                                firstname: v.firstname,
+                                lastname: v.lastname,
+                                email: v.email,
+                                password: v.password,
+                                phoneNumber: v.phoneNumber,
+                                phoneNumber2: v.phoneNumber2,
+                                status: v.status,
+                                role: v.role,
+                                create_at: v.create_at,
+                                updated_at: v.updated_at,
+                            })
                     }
                 });
         },
@@ -62,10 +62,23 @@ createApp({
                             document.getElementsByClassName('myform').clear();
                         }
                     });
-            }else{
+            } else {
                 alert("Fill up empty and images!");
             }
 
+        },
+        dateString: function (dateString) {
+
+            var dateObject = new Date(dateString);
+
+            var formattedDateString = dateObject.toLocaleString('en-US', {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            });
+
+            return formattedDateString;
         }
     },
     created: function () {

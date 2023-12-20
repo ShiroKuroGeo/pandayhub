@@ -1,144 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+session_start();
+
+if (!isset($_SESSION['userId'])) {
+    header('location:./index.php');
+}
+?>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/9a0808c715.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
-    <link rel="stylesheet" href="/pandayhub/assets/css/pandays.css">
+    <meta charset="utf-8">
+    <title>PandayHub</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../../Assets/assets/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../../Assets/assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../../Assets/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../Assets/assets/css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <div id="petStore">
-
+    <div class="container-fluid bg-white p-0" id="petStore">
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
         <?php
-        include('nav.php')
+        include('sidebar.php');
         ?>
-
-        <section class="head text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+        <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
             <div class="container">
-                <div class="d-sm-flex justify-content-between">
-                    <div class="mt-5" style="max-width: 550px;">
-                        <h1 class="pt-3 mt-5">GET YOUR <span class="builders fw-bold">BUILDERS </span>NOW</h1>
-                        <p class="lead my-4 mb-4 fw-bold">
-                            The Contruction of is a testament to the hardwok and expertise of the team, resulting in a sturdy and visually and stunning structure
-                        </p>
-                        <button class="btn2 btn-sm fw-bold mb-5" type="button" data-bs-toggle="modal" data-bs-target="#pandays">ADD YOURS NOW</button>
+                <div class="row g-2">
+                    <div class="col-md-10">
+                        <div class="row g-2">
+                            <div class="col-12">
+                                <input type="search" class="form-control " placeholder="Search for location" v-model="searchLoc" />
+                            </div>
+                        </div>
                     </div>
-                    <img src="/pandayhub/assets/img/secondary.png" class="img-fluid d-none d-sm-block mt-5" width="400" height="360">
+                    <div class="col-md-2">
+                        <button class="btn btn-dark border-0 w-100" disabled>Search</button>
+                    </div>
                 </div>
             </div>
-        </section>
-
-        <!-- modal -->
-        <div class="modal fade mt-5" id="pandays">
-            <div class="modal-dialog d-flex modal-dialog-center">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                        <div class="myform">
-                            <h1 class="reg text-center">CLIENT FORM</h1>
-
-                            <div class="mb-3 mt-3">
-                                <label for="Email" class="me-5 fw-bold">Panday Skill</label>
-                                <input type="Email" v-model="Panday_skill" class="form-control" />
+        </div>
+        <div class="container-xxl py-5 ">
+            <div class="container">
+                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Panday Listing</h1>
+                <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane fade show p-0 active">
+                            <div class="job-item p-4 mb-4" v-for="p of searchPanday">
+                                <div class="row g-4">
+                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid border rounded" :src="'/pandayhub/Assets/img/' + p.profile" alt="" style="width: 80px; height: 80px;">
+                                        <div class="text-start ps-4">
+                                            <h5 class="mb-3 text-capitalize">{{p.lastname}}, {{ p.firstname }}</h5>
+                                            <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{p.location}}</span>
+                                            <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>{{p.skill}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                        <div class="d-flex mb-3">
+                                            <button class="btn btn-primary me-2" :disabled="p.status == 2" @click="getHireUser(p.userId)">{{p.status == 1 ? 'Hire' : 'Hired'}}</button>
+                                            <button class="btn btn-primary me-2" @click="getUserById(p.userId)" data-bs-toggle="modal" data-bs-target="#viewManagement"><i class="bi bi-eye" title="View"></i></button>
+                                            <a :href="'chatroom.php?id='+p.userId" class="btn btn-sm btn-primary"><i class="bi bi-chat-dots col-2"></i></a>
+                                        </div>
+                                        <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>{{p.level}}</small>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="mb-3 mt-3">
-                                <label for="Email" class="me-5 fw-bold">Panday Location</label>
-                                <input type="Email" v-model="Panday_location" class="form-control" />
-                            </div>
-                            <div class="mb-3 mt-3">
-                                <label for="Password" class="me-3 fw-bold">Panday Level</label>
-                                <input type="password" v-model="Panday_level" class="form-control" />
-                            </div>
-                            <div class="btn-form ms-auto">
-                                <button type="button" class="btn3 mt-2 fw-bold" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn3 mt-2 fw-bold ms-3" @click="storePanday">Post</button>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="viewManagement" tabindex="-1" aria-labelledby="viewManagementLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="viewManagementLabel">View Panday Info</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-start text-capitalize" v-for="so of selectedPanday">
+                                    Owner: {{so.firstname}}, {{so.lastname}}<br>
+                                    Where: {{so.location}}<br>
+                                    Skills: {{so.skill}}<br>
+                                    Expertise: {{so.level}}<br>
+                                    Date Joined: {{so.created_at}}<br>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Okay</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- profiling -->
-        <section style="overflow-y: scroll; height: 90vh">
-            <div class="container-fluid my-3">
-                <div class="row d-flex px-3">
-
-                    <div class="card mb-3 ms-1" style="max-width: 440px;" v-for="p of pandays">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img class="col-4 p-2 rounded w-100 h-100" :src="'/pandayhub/assets/img/' + p.profile" alt="">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h6 class="mt-2 text-capitalize">Name: {{p.lastname}}, {{ p.firstname }}</h6>
-                                    <h6 class="mt-3 text-capitalize">Location: {{p.location}}</h6>
-                                    <h6 class="mt-3 text-capitalize">Skill: {{p.skill}}</h6>
-                                    <h6 class="mt-2 text-capitalize">Level: {{p.level}}</h6>
-
-                                    <p class="card-text d-flex">
-                                        <button class="btn btn-sm ms-2">View</button>
-                                        <button class="btn btn-sm ms-2">Hire</button>
-                                        <button class="btn btn-sm ms-2">Message</button>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- <div class="jobs col-4 me-2 mb-1 rounded">
-                        <div class="row">
-                            <div class="jobsIMG col-md-5 mt-2">
-                            <img class="col-4 p-2 rounded" style="max-width: 140px;" :src="'/pandayhub/assets/img/' + p.profile" alt="">
-                            </div>
-                            <div class="info col-md-5 p-0">
-                                <h6 class="mt-2 text-capitalize">Name: {{p.lastname}}, {{ p.firstname }}</h6>
-                                <h6 class="mt-3 text-capitalize">Location: {{p.location}}</h6>
-                                <h6 class="mt-3 text-capitalize">Skill: {{p.skill}}</h6>
-                                <h6 class="mt-2 text-capitalize">Level: {{p.level}}</h6>
-                            </div>
-                            <div class="btn-view col-md-3">
-                                <button class="btn btn-sm">Message</button>
-                                <button class="btn btn-sm">Message</button>
-                                <button class="btn btn-sm">Message</button>
-                            </div>
-                        </div>
-                    </div> -->
-                </div>
-            </div>
-        </section>
-
-        <!-- footer -->
-        <footer class="footer text-center text-lg-start mt-5">
-            <!-- Copyright -->
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="text-center p-3 col-md-2" style="background-color: rgba(0, 0, 0, 0.2);">
-                        <p><a href="" class="f-text fw-bold">James Michael Guevarra</a></p>
-                    </div>
-                    <div class="text-center p-3 col-md-8" style="background-color: rgba(0, 0, 0, 0.2);">
-                        <p><a href="" class="f-text fw-bold">Jovet Quillan</a></p>
-                    </div>
-                    <div class="text-center p-3 col-md-2" style="background-color: rgba(0, 0, 0, 0.2);">
-                        <p><a href="" class="f-text fw-bold">Jose Jeff Jumao-as</a></p>
-                    </div>
-                </div>
-            </div>
-            <!-- Copyright -->
-        </footer>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../Assets/assets/lib/wow/wow.min.js"></script>
+    <script src="../../Assets/assets/lib/easing/easing.min.js"></script>
+    <script src="../../Assets/assets/lib/waypoints/waypoints.min.js"></script>
+    <script src="../../Assets/assets/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../../Assets/assets/js/main.js"></script>
+    <script src="../../BackEnd/vue/axios.js"></script>
+    <script src="../../BackEnd/vue/vue.3.js"></script>
+    <!-- <script src="../../BackEnd/vue/nav.js"></script> -->
+    <script src="../../BackEnd/middleware/user/pandays.js"></script>
 </body>
-<script src="../../BackEnd/vue/axios.js"></script>
-<script src="../../BackEnd/vue/vue.3.js"></script>
-<script src="../../BackEnd/vue/nav.js"></script>
-<script src="../../BackEnd/middleware/user/pandays.js"></script>
 
 </html>

@@ -38,7 +38,7 @@
                                 <p class="text-muted mb-1">{{gt.email}}</p>
                                 <p class="text-muted mb-4">Joined at {{gt.create_at}}</p>
                                 <div class="d-flex justify-content-center mb-2">
-                                    <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+                                    <button type="button" class="btn btn-outline-primary ms-1">Messages</button>
                                 </div>
                             </div>
                         </div>

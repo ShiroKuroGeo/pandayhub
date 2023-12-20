@@ -1,127 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-    session_start();
+session_start();
+
+if (!isset($_SESSION['userId'])) {
+    header('location:./index.php');
+}
 ?>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/9a0808c715.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
-    <link rel="stylesheet" href="/pandayhub/assets/css/jobs.css">
+    <meta charset="utf-8">
+    <title>PandayHub</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../../Assets/assets/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../../Assets/assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../../Assets/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../Assets/assets/css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <div id="jobshub">
-
-        <?php
-        include('nav.php')
-        ?>
-
-        <section class="head text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
-            <div class="container">
-                <div class="d-sm-flex justify-content-between">
-                    <div class="mt-5" style="max-width: 550px;">
-                        <h1 class="pt-3 mt-5">GET YOUR <span class="builders fw-bold">BUILDERS </span>NOW</h1>
-                        <p class="lead my-4 mb-4 fw-bold">
-                            The Contruction of is a testament to the hardwok and expertise of the team, resulting in a sturdy and visually and stunning structure
-                        </p>
-                        <button class="btn2 btn-sm fw-bold mb-5" type="button" data-bs-toggle="modal" data-bs-target="#jobs">ADD YOURS NOW</button>
-                    </div>
-                    <img src="/pandayhub/assets/img/secondary.png" class="img-fluid d-none d-sm-block mt-5" width="400" height="360">
-                </div>
-            </div>
-        </section>
-
-
-        <!-- modal -->
-        <div class="modal fade mt-1" id="jobs">
-            <div class="modal-dialog d-flex modal-dialog-center">
-                <div class="modal-content" style="background-color: #2C2727">
-                    <div class="modal-body">
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                        <div class="myform">
-                            <h1 class="reg text-center">Panday FORM</h1>
-                            <div class="mb-2 mt-3">
-                                <label for="Email" class="me-5 fw-bold">
-                                    Add Picture <br>
-                                    <i class="fas fa-camera-retro fa-3x" style="color: white; cursor: pointer" onclick="document.getElementById('cameraClickJob').click()"></i>
-                                </label>
-                                <input type="file" class="form-control-file rounded fw-bold visually-hidden" name="file" id="cameraClickJob" />
-                            </div>
-                            <div class="mb-3 mt-3">
-                                <label for="Email" class="me-5">Job Title</label>
-                                <input type="text" class="form-control" v-model="job_title" />
-                            </div>
-                            <div class="mb-3 mt-3">
-                                <label for="Email" class="me-5">Location</label>
-                                <input type="text" class="form-control" v-model="job_location" />
-                            </div>
-                            <div class="mb-3 mt-3">
-                                <label for="Email" class="me-5">Project Type</label>
-                                <input type="text" class="form-control" v-model="job_project" />
-                            </div>
-                            <div class="mb-3 mt-3">
-                                <label for="Password" class="me-3">Payments</label>
-                                <input type="text" class="form-control" v-model="job_payment" />
-                            </div>
-                            <div class="mb-3 mt-3">
-                                <label for="Password" class="me-3">Experience</label>
-                                <textarea v-model="job_require_exp" class="form-control form-control-sm" cols="30" rows="3"></textarea>
-                            </div>
-                            <div class="btn-form ms-auto">
-                                <button type="button" @click="loginUser" data-bs-dismiss="modal" class="btn3 mt-2 fw-bold" id="btn_login">Cancel</button>
-                                <button type="button" @click="storeJobs" class="btn3 mt-2 fw-bold ms-3" id="btn_login">Post</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="container-fluid bg-white p-0" id="jobshub">
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
             </div>
         </div>
-
-        <!-- profiling -->
-        <section style="overflow-y: scroll; height: 90vh">
-            <div class="container-fluid my-3">
-                <div class="row">
-
-                    <div class="col-3 mb-3" v-for="j of getJobs">
-                        <div class="card" style="width: 22rem;">
-                            <img :src="'/pandayhub/Assets/img/' + j.picture" class="" height="250" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">{{j.job_title}}</h5>
-                                <p class="card-text">This project is {{j.job_project}}</p>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">{{j.job_location}}</li>
-                                <li class="list-group-item">{{j.job_require_exp}}</li>
-                                <li class="list-group-item">{{j.job_payment}}</li>
-                            </ul>
-                            <div :class="j.job_poser === <?php echo $_SESSION['userId']?> ? 'card-footer d-flex justify-content-between' : 'card-footer visually-hidden d-flex justify-content-between'">
-                                <button class="btn btn-md col-12" @click="selectedJob(j.job_id)" data-bs-toggle="modal" data-bs-target="#viewMore">View More</button>
+        <?php
+        include('sidebar.php');
+        ?>
+        <div class="container-xxl py-5">
+            <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
+                <div class="container">
+                    <div class="row g-2">
+                        <div class="col-md-10">
+                            <div class="row g-2">
+                                <div class="col-12">
+                                    <input type="search" class="form-control " placeholder="Search for location" v-model="searchLoc" />
+                                </div>
                             </div>
                         </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-dark border-0 w-100" disabled>Search</button>
+                        </div>
                     </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="viewMore" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <div class="card text-center" v-for="j of selectedIdJob">
-                                        <div class="card-header">
-                                            {{j.job_title}}
+                </div>
+            </div>
+            <div class="container">
+                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Job Listing</h1>
+                <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane fade show p-0 active">
+                            <div class="job-item p-4 mb-4" v-for="j of searchJob">
+                                <div class="row g-4">
+                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid border rounded" :src="'/pandayhub/Assets/img/' + j.picture" alt="" style="width: 80px; height: 80px;">
+                                        <div class="text-start ps-4">
+                                            <h5 class="mb-3">{{j.job_title}}</h5>
+                                            <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{j.job_location}}</span>
+                                            <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>{{j.projectType}}</span>
+                                            <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>{{j.job_payment}}</span>
                                         </div>
-                                        <div class="card-body">
-                                            <h5 class="card-title">This project is {{j.job_project}}</h5>
-                                            <p class="card-text">Location: {{j.job_location}}</p>
-                                            <div class="card-link">Payments: {{j.job_payment}}</div>
-                                            <div class="card-link">Requirement: {{j.job_require_exp}}</div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                        <div :class="j.job_poser != <?php echo $_SESSION['userId'] ?> ? 'd-flex mb-3' : 'd-flex mb-3 visually-hidden'">
+                                            <a class="btn btn-primary" @click="applyNow(j.job_poser)">Apply Now</a>
                                         </div>
-                                        <div :class="j.job_poser === <?php echo $_SESSION['userId']?> ? 'card-footer' : 'card-footer visually-hidden'" >
-                                            <button class="btn btn-md" @click="applyNow(j.job_poser)">Apply Now</button>
+                                        <div :class="j.job_poser == <?php echo $_SESSION['userId'] ?> ? 'd-flex mb-3' : 'd-flex mb-3 visually-hidden'">
+                                            <button class="btn btn-primary" disabled>Apply Now</button>
                                         </div>
+                                        <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>{{j.job_require_exp}}</small>
                                     </div>
                                 </div>
                             </div>
@@ -129,34 +83,19 @@
                     </div>
                 </div>
             </div>
-        </section>
-
-
-
-        <!-- footer -->
-        <footer class="footer text-center text-lg-start mt-5">
-            <!-- Copyright -->
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="text-center p-3 col-md-2" style="background-color: rgba(0, 0, 0, 0.2);">
-                        <p><a href="" class="f-text fw-bold">James Michael Guevarra</a></p>
-                    </div>
-                    <div class="text-center p-3 col-md-8" style="background-color: rgba(0, 0, 0, 0.2);">
-                        <p><a href="" class="f-text fw-bold">Jovet Quillan</a></p>
-                    </div>
-                    <div class="text-center p-3 col-md-2" style="background-color: rgba(0, 0, 0, 0.2);">
-                        <p><a href="" class="f-text fw-bold">Jose Jeff Jumao-as</a></p>
-                    </div>
-                </div>
-            </div>
-            <!-- Copyright -->
-        </footer>
+        </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../Assets/assets/lib/wow/wow.min.js"></script>
+    <script src="../../Assets/assets/lib/easing/easing.min.js"></script>
+    <script src="../../Assets/assets/lib/waypoints/waypoints.min.js"></script>
+    <script src="../../Assets/assets/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../../Assets/assets/js/main.js"></script>
+    <script src="/pandayhub/BackEnd/vue/axios.js"></script>
+    <script src="/pandayhub/BackEnd/vue/vue.3.js"></script>
+    <script src="/pandayhub/BackEnd/middleware/user/jobs.js"></script>
 </body>
-<script src="/pandayhub/BackEnd/vue/axios.js"></script>
-<script src="/pandayhub/BackEnd/vue/vue.3.js"></script>
-<script src="/pandayhub/BackEnd/middleware/user/jobs.js"></script>
 
 </html>

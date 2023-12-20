@@ -22,7 +22,6 @@ createApp({
             });
         },
         loginUser:function(){
-            
             const vue = this;
             var data = new FormData();
             data.append("METHOD","loginUser");
@@ -35,11 +34,13 @@ createApp({
                 }else if(r.data == 'activeAdmin'){
                     window.location.href = "FrontEnd/admin/index.php";
                 }else{
-
+                    alert('Account Restricted/Block');
+                    window.location.href = '/pandayhub/BackEnd/logout.php';
                 }
 
             });
-        }
+        },
+        
     },
     created:function(){
         

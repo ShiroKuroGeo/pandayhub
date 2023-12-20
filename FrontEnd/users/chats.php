@@ -1,312 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+session_start();
+
+if (!isset($_SESSION['userId'])) {
+    header('location:./index.php');
+}
+?>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/9a0808c715.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
-    <link rel="stylesheet" href="/pandayhub/assets/css/chats.css">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <title>PandayHub</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../../Assets/assets/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../../Assets/assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../../Assets/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../Assets/assets/css/style.css" rel="stylesheet">
 </head>
 
-<body style="overflow-y: hidden;">
+<body>
+    <div class="container-fluid bg-white p-0" id="chatHub">
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <?php
+        include('sidebar.php');
+        ?>
 
-    <?php
-        include('nav.php')
-    ?>
+        <section id="chatHub">
+            <div class="container py-4 mt-1">
 
-    <section style="background-color: #FF9900;">
-        <div class="container py-4 mt-1">
+                <div class="row">
+                    <div class=" d-flex justify-content-center align-items-center">
 
-            <div class="row">
-                <div class="col-md-12">
+                        <div class="card col-lg-8 col-12" id="chat3" style="border-radius: 15px;">
+                            <div class="card-body">
 
-                    <div class="card" id="chat3" style="border-radius: 15px;">
-                        <div class="card-body">
-
-                            <div class="row">
-                                <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
-
-                                    <div class="p-3">
-
-                                        <div class="input-group rounded mb-3">
-                                            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                                            <span class="input-group-text border-0" id="search-addon">
-                                                <i class="fas fa-search"></i>
-                                            </span>
-                                        </div>
-
-                                        <div data-mdb-perfect-scrollbar="true" style="position: relative; height: 500px; overflow-y: scroll;">
-                                            <ul class="list-unstyled mb-0">
-                                                <li class="p-2 border-bottom">
-                                                    <a href="#!" class="d-flex justify-content-between">
-                                                        <div class="d-flex flex-row">
-                                                            <div>
-                                                                <img src="/pandayhub/assets/img/cute.jpg" alt="avatar" class="d-flex align-self-center me-3" width="60">
-                                                                <span class="badge bg-success badge-dot"></span>
-                                                            </div>
-                                                            <div class="pt-1">
-                                                                <p class="fw-bold mb-0">Marie Horwitz</p>
-                                                                <p class="small text-muted">Hello, Are you there?</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="pt-1">
-                                                            <p class="small text-muted mb-1">Just now</p>
-                                                            <span class="badge bg-danger rounded-pill float-end">3</span>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li class="p-2 border-bottom">
-                                                    <a href="#!" class="d-flex justify-content-between">
-                                                        <div class="d-flex flex-row">
-                                                            <div>
-                                                                <img src="/pandayhub/assets/img/cute.jpg" alt="avatar" class="d-flex align-self-center me-3" width="60">
-                                                                <span class="badge bg-warning badge-dot"></span>
-                                                            </div>
-                                                            <div class="pt-1">
-                                                                <p class="fw-bold mb-0">Alexa Chung</p>
-                                                                <p class="small text-muted">Lorem ipsum dolor sit.</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="pt-1">
-                                                            <p class="small text-muted mb-1">5 mins ago</p>
-                                                            <span class="badge bg-danger rounded-pill float-end">2</span>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li class="p-2 border-bottom">
-                                                    <a href="#!" class="d-flex justify-content-between">
-                                                        <div class="d-flex flex-row">
-                                                            <div>
-                                                                <img src="/pandayhub/assets/img/cute.jpg" alt="avatar" class="d-flex align-self-center me-3" width="60">
-                                                                <span class="badge bg-success badge-dot"></span>
-                                                            </div>
-                                                            <div class="pt-1">
-                                                                <p class="fw-bold mb-0">Danny McChain</p>
-                                                                <p class="small text-muted">Lorem ipsum dolor sit.</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="pt-1">
-                                                            <p class="small text-muted mb-1">Yesterday</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li class="p-2 border-bottom">
-                                                    <a href="#!" class="d-flex justify-content-between">
-                                                        <div class="d-flex flex-row">
-                                                            <div>
-                                                                <img src="/pandayhub/assets/img/cute.jpg" alt="avatar" class="d-flex align-self-center me-3" width="60">
-                                                                <span class="badge bg-success badge-dot"></span>
-                                                            </div>
-                                                            <div class="pt-1">
-                                                                <p class="fw-bold mb-0">Danny McChain</p>
-                                                                <p class="small text-muted">Lorem ipsum dolor sit.</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="pt-1">
-                                                            <p class="small text-muted mb-1">Yesterday</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                    <li class="p-2 border-bottom">
-                                                        <a href="#!" class="d-flex justify-content-between">
-                                                            <div class="d-flex flex-row">
-                                                                <div>
-                                                                    <img src="/pandayhub/assets/img/cute.jpg" alt="avatar" class="d-flex align-self-center me-3" width="60">
-                                                                    <span class="badge bg-success badge-dot"></span>
-                                                                </div>
-                                                                <div class="pt-1">
-                                                                    <p class="fw-bold mb-0">Danny McChain</p>
-                                                                    <p class="small text-muted">Lorem ipsum dolor sit.</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="pt-1">
-                                                                <p class="small text-muted mb-1">Yesterday</p>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                <li class="p-2 border-bottom">
-                                                    <a href="#!" class="d-flex justify-content-between">
-                                                        <div class="d-flex flex-row">
-                                                            <div>
-                                                                <img src="/pandayhub/assets/img/cute.jpg" alt="avatar" class="d-flex align-self-center me-3" width="60">
-                                                                <span class="badge bg-danger badge-dot"></span>
-                                                            </div>
-                                                            <div class="pt-1">
-                                                                <p class="fw-bold mb-0">Ashley Olsen</p>
-                                                                <p class="small text-muted">Lorem ipsum dolor sit.</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="pt-1">
-                                                            <p class="small text-muted mb-1">Yesterday</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li class="p-2 border-bottom">
-                                                    <a href="#!" class="d-flex justify-content-between">
-                                                        <div class="d-flex flex-row">
-                                                            <div>
-                                                                <img src="/pandayhub/assets/img/cute.jpg" alt="avatar" class="d-flex align-self-center me-3" width="60">
-                                                                <span class="badge bg-warning badge-dot"></span>
-                                                            </div>
-                                                            <div class="pt-1">
-                                                                <p class="fw-bold mb-0">Kate Moss</p>
-                                                                <p class="small text-muted">Lorem ipsum dolor sit.</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="pt-1">
-                                                            <p class="small text-muted mb-1">Yesterday</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li class="p-2">
-                                                    <a href="#!" class="d-flex justify-content-between">
-                                                        <div class="d-flex flex-row">
-                                                            <div>
-                                                                <img src="/pandayhub/assets/img/cute.jpg" alt="avatar" class="d-flex align-self-center me-3" width="60">
-                                                                <span class="badge bg-success badge-dot"></span>
-                                                            </div>
-                                                            <div class="pt-1">
-                                                                <p class="fw-bold mb-0">Ben Smith</p>
-                                                                <p class="small text-muted">Lorem ipsum dolor sit.</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="pt-1">
-                                                            <p class="small text-muted mb-1">Yesterday</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-
+                                <div class="input-group rounded mb-3">
+                                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                                    <span class="input-group-text border-0" id="search-addon">
+                                        <i class="fas fa-search"></i>
+                                    </span>
                                 </div>
 
-                                <div class="col-md-6 col-lg-7 col-xl-8">
-
-                                    <div style="position: relative; height: 500px; overflow-y:scroll">
-
-                                        <div class="d-flex flex-row justify-content-start">
-                                            <img src="/pandayhub/assets/img/cute.jpg" alt="avatar 1" style="width: 45px; height: 100%;">
-                                            <div>
-                                                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Lorem ipsum
-                                                    dolor
-                                                    sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                                                    dolore
-                                                    magna aliqua.</p>
-                                                <p class="small ms-3 mb-3 rounded-3 text-muted float-end">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex flex-row justify-content-end">
-                                            <div>
-                                                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Ut enim ad minim veniam,
-                                                    quis
-                                                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                                <p class="small me-3 mb-3 rounded-3 text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                            <img src="/pandayhub/assets/img/cute.jpg" alt="avatar 1" style="width: 45px; height: 100%;">
-                                        </div>
-
-                                        <div class="d-flex flex-row justify-content-start">
-                                            <img src="/pandayhub/assets/img/cute.jpg" alt="avatar 1" style="width: 45px; height: 100%;">
-                                            <div>
-                                                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Duis aute
-                                                    irure
-                                                    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                                </p>
-                                                <p class="small ms-3 mb-3 rounded-3 text-muted float-end">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex flex-row justify-content-end">
-                                            <div>
-                                                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Excepteur sint occaecat
-                                                    cupidatat
-                                                    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                                <p class="small me-3 mb-3 rounded-3 text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                            <img src="/pandayhub/assets/img/cute.jpg" alt="avatar 1" style="width: 45px; height: 100%;">
-                                        </div>
-
-                                        <div class="d-flex flex-row justify-content-start">
-                                            <img src="/pandayhub/assets/img/cute.jpg" alt="avatar 1" style="width: 45px; height: 100%;">
-                                            <div>
-                                                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Sed ut
-                                                    perspiciatis
-                                                    unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-                                                    rem
-                                                    aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-                                                    dicta
-                                                    sunt explicabo.</p>
-                                                <p class="small ms-3 mb-3 rounded-3 text-muted float-end">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex flex-row justify-content-end">
-                                            <div>
-                                                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Nemo enim ipsam
-                                                    voluptatem quia
-                                                    voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-                                                    qui
-                                                    ratione voluptatem sequi nesciunt.</p>
-                                                <p class="small me-3 mb-3 rounded-3 text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                            <img src="/pandayhub/assets/img/cute.jpg" alt="avatar 1" style="width: 45px; height: 100%;">
-                                        </div>
-
-                                        <div class="d-flex flex-row justify-content-start">
-                                            <img src="/pandayhub/assets/img/cute.jpg" alt="avatar 1" style="width: 45px; height: 100%;">
-                                            <div>
-                                                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Neque porro
-                                                    quisquam
-                                                    est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non
-                                                    numquam
-                                                    eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-                                                <p class="small ms-3 mb-3 rounded-3 text-muted float-end">12:00 PM | Aug 13</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex flex-row justify-content-end">
-                                            <div>
-                                                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Ut enim ad minima veniam,
-                                                    quis
-                                                    nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea
-                                                    commodi
-                                                    consequatur?</p>
-                                                <p class="small me-3 mb-3 rounded-3 text-muted">12:00 PM | Aug 13</p>
-                                            </div>
-                                            <img src="/pandayhub/assets/img/cute.jpg" alt="avatar 1" style="width: 45px; height: 100%;">
-                                        </div>
-
-                                    </div>
-
-                                    <div class="text-muted d-flex justify-content-start align-items-center pe-3 pt-3 mt-2">
-                                        <img src="/pandayhub/assets/img/cute.jpg" alt="avatar 3" style="width: 40px; height: 100%;">
-                                        <input type="text" class="form-control form-control-lg" id="exampleFormControlInput2" placeholder="Type message">
-                                        <a class="ms-1 text-muted" href="#!"><i class="fas fa-paperclip"></i></a>
-                                        <a class="ms-3 text-muted" href="#!"><i class="fas fa-smile"></i></a>
-                                        <a class="ms-3" href="#!"><i class="fas fa-paper-plane"></i></a>
-                                    </div>
-
+                                <div data-mdb-perfect-scrollbar="true" style="position: relative; height: 500px; overflow-y: scroll;">
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="p-2 border-bottom" v-for="al of allUsers">
+                                            <a :href="'chatroom.php?id='+al.sender" class="d-flex justify-content-between">
+                                                <div class="d-flex flex-row">
+                                                    <div>
+                                                        <img :src="'/pandayhub/assets/img/'+al.sendPic" alt="avatar" class="border shadow rounded-circle d-flex align-self-center me-3" width="50" height="50">
+                                                        <span class="badge bg-success badge-dot"></span>
+                                                    </div>
+                                                    <div class="pt-1">
+                                                        <p class="small text-muted text-capitalize">{{al.lastname}}, {{al.firstname}}</p>
+                                                        <p class="small text-muted text-capitalize">{{al.message}}</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
                 </div>
             </div>
+        </section>
+    </div>
 
-        </div>
-    </section>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="BackEnd/vue/nav.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../Assets/assets/lib/wow/wow.min.js"></script>
+    <script src="../../Assets/assets/lib/easing/easing.min.js"></script>
+    <script src="../../Assets/assets/lib/waypoints/waypoints.min.js"></script>
+    <script src="../../Assets/assets/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../../Assets/assets/js/main.js"></script>
+    <script src="/pandayhub/BackEnd/vue/axios.js"></script>
+    <script src="/pandayhub/BackEnd/vue/vue.3.js"></script>
+    <script src="../../BackEnd/middleware/chat.js"></script>
 </body>
 
 </html>
