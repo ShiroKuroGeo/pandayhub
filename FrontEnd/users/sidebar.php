@@ -37,8 +37,9 @@
                 <div class="container">
                     <div class="row justify-content-start">
                         <div class="col-10 col-lg-8">
-                            <h1 class="display-3 text-white mb-4">Find The Perfect Job That You Deserved</h1>
-                            <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
+                            <h1 class="display-3 text-white mb-4">GET YOUR <span class="text-primary">BUILDERS</span> NOW</h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-2">The  Contruction of is a testament to the hardwok and expertise of 
+                            the team, resulting in a sturdy and visually and stunning structure</p>
                         </div>
                     </div>
                 </div>

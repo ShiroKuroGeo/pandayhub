@@ -69,7 +69,7 @@
                 <div class="container-fluid px-4">
 
                     <div class="row my-5">
-                        <h3 class="primary-text fs-4 mb-3">Recent Request</h3>
+                        <h3 class="primary-text fs-4 mb-3">Recent Users</h3>
                         <div class="col">
                             <table class="table rounded shadow-sm">
                                 <thead class="">

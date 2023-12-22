@@ -57,21 +57,21 @@ if (!isset($_SESSION['userId'])) {
                 <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
                     <div class="tab-content">
                         <div id="tab-1" class="tab-pane fade show p-0 active">
-                            <div class="job-item p-4 mb-4" v-for="p of searchPanday">
+                            <div class="job-item p-4 mb-4 bg-dark text-primary" v-for="p of searchPanday">
                                 <div class="row g-4">
                                     <div class="col-sm-12 col-md-8 d-flex align-items-center">
                                         <img class="flex-shrink-0 img-fluid border rounded" :src="'/pandayhub/Assets/img/' + p.profile" alt="" style="width: 80px; height: 80px;">
                                         <div class="text-start ps-4">
-                                            <h5 class="mb-3 text-capitalize">{{p.lastname}}, {{ p.firstname }}</h5>
+                                            <h5 class="mb-3 text-capitalize text-primary">{{p.lastname}}, {{ p.firstname }}</h5>
                                             <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{p.location}}</span>
                                             <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>{{p.skill}}</span>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                                         <div class="d-flex mb-3">
-                                            <button class="btn btn-primary me-2" :disabled="p.status == 2" @click="getHireUser(p.userId)">{{p.status == 1 ? 'Hire' : 'Hired'}}</button>
-                                            <button class="btn btn-primary me-2" @click="getUserById(p.userId)" data-bs-toggle="modal" data-bs-target="#viewManagement"><i class="bi bi-eye" title="View"></i></button>
-                                            <a :href="'chatroom.php?id='+p.userId" class="btn btn-sm btn-primary"><i class="bi bi-chat-dots col-2"></i></a>
+                                            <button class="btn btn-primary text-dark me-2" :disabled="p.status == 2" @click="getHireUser(p.userId)">{{p.status == 1 ? 'Hire' : 'Hired'}}</button>
+                                            <button class="btn btn-primary text-dark me-2" @click="getUserById(p.userId)" data-bs-toggle="modal" data-bs-target="#viewManagement"><i class="bi bi-eye" title="View"></i></button>
+                                            <a :href="'chatroom.php?id='+p.userId" class="btn btn-sm btn-primary text-dark"><i class="bi bi-chat-dots col-2"></i></a>
                                         </div>
                                         <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>{{p.level}}</small>
                                     </div>

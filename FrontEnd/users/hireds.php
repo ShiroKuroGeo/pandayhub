@@ -35,7 +35,7 @@ if (!isset($_SESSION['userId'])) {
         <?php
         include('sidebar.php');
         ?>
-        <div class="container-xxl py-5 vh-100">
+        <div class="container-xxl py-5">
             <div class="container">
                 <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Hires</h1>
                 <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
@@ -67,10 +67,10 @@ if (!isset($_SESSION['userId'])) {
                                         {{j.status == 1 ? 'Pending' : j.status == 2 ? 'Hired' : 'Decline'}}
                                     </td>
                                     <td>
-                                        <a :href="'chatroom.php?id='+j.userId" class="btn btn-md me-2 btn-primary rounded-circle">
+                                        <a :href="'chatroom.php?id='+j.userId" class="btn btn-md me-2 btn-primary text-dark rounded-circle">
                                             <i class="bi bi-chat-dots col-2"></i>
                                         </a>
-                                        <button class="btn btn-md me-2 btn-primary rounded-circle" data-bs-toggle="modal" data-bs-target="#reportUser" @click="getId(j.userId)">
+                                        <button class="btn btn-md me-2 btn-primary text-dark rounded-circle" data-bs-toggle="modal" data-bs-target="#reportUser" @click="getId(j.userId)">
                                             <i class="bi bi-exclamation-circle"></i>
                                         </button>
                                     </td>

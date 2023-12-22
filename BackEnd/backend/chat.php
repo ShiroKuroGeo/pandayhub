@@ -80,6 +80,6 @@ class chat
     }
 
     private function getAllWhoMessageQuery(){
-        return "SELECT c.*, sendui.profile as sendPic, sendui.firstname, sendui.lastname, recui.profile as recPic, recui.firstname AS ref, recui.lastname AS rel FROM `chats` AS c INNER JOIN `users` AS sendui INNER JOIN `users` AS recui ON c.sender = sendui.userId AND c.reciever = recui.userId WHERE c.reciever = 22 GROUP BY c.sender ORDER BY created DESC";
+        return "SELECT c.*, sendui.profile as sendPic, sendui.firstname, sendui.lastname, recui.profile as recPic, recui.firstname AS ref, recui.lastname AS rel FROM `chats` AS c INNER JOIN `users` AS sendui INNER JOIN `users` AS recui ON c.sender = sendui.userId AND c.reciever = recui.userId WHERE c.reciever = ? GROUP BY c.sender ORDER BY created DESC";
     }
 }

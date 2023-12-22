@@ -43,7 +43,7 @@ if (!isset($_SESSION['userId'])) {
                         <nav aria-label="breadcrumb" class="head rounded-3 p-3 mb-4">
                             <ol class="breadcrumb mb-0">
 
-                                <button class="btn btnEdit btn-md ms-auto fw-bold btn-primary" data-bs-toggle="modal" data-bs-target="#edit">Edit Profile</button>
+                                <button class="btn btnEdit btn-md ms-auto fw-bold btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#edit">Edit Profile</button>
                             </ol>
                         </nav>
                     </div>
