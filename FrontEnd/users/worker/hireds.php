@@ -19,14 +19,14 @@ if (!isset($_SESSION['userId'])) {
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="../../Assets/assets/lib/animate/animate.min.css" rel="stylesheet">
-    <link href="../../Assets/assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="../../Assets/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../Assets/assets/css/style.css" rel="stylesheet">
+    <link href="../../../Assets/assets/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../../../Assets/assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../../../Assets/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../Assets/assets/css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container-fluid bg-white p-0" id="applicantsHub">
+    <div class="container-fluid bg-white p-0 vh-100" id="hiredshub">
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
@@ -35,9 +35,9 @@ if (!isset($_SESSION['userId'])) {
         <?php
         include('sidebar.php');
         ?>
-        <div class="container-xxl py-5 vh-100">
+        <div class="container-xxl py-5">
             <div class="container">
-                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">My applicants</h1>
+                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Notification</h1>
                 <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
                     <div class="tab-content">
                         <table class="table">
@@ -52,10 +52,10 @@ if (!isset($_SESSION['userId'])) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(j, index) of applicants">
+                                <tr v-for="(j, index) of hireds">
                                     <th scope="row">{{1+index++}}</th>
                                     <td>
-                                        <img :src="'/pandayhub/Assets/img/'+ j.profile" style="width: 60px; height: 60px" class="rounded-circle">
+                                        <img :src="'/pandayhub/Assets/img/'+ j.profile" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
                                     </td>
                                     <td>
                                         {{j.lastname}} {{j.firstname}}
@@ -64,17 +64,14 @@ if (!isset($_SESSION['userId'])) {
                                         {{j.email}}
                                     </td>
                                     <td>
-                                        {{j.status == 1 ? 'Pending' : j.status == 2 ? 'Hired' : 'Decline'}}
+                                        Hired
                                     </td>
                                     <td>
-                                        <a :href="'chatroom.php?id='+j.appliUser_id" class="btn btn-md btn-primary me-3 rounded-circle">
+                                        <a :href="'chatroom.php?id='+j.userId" class="btn btn-md me-2 btn-primary text-dark rounded-circle">
                                             <i class="bi bi-chat-dots col-2"></i>
                                         </a>
-                                        <button class="btn btn-md btn-primary me-3 rounded-circle" data-bs-toggle="modal" data-bs-target="#reportUser" @click="getId(j.appliUser_id)">
+                                        <button class="btn btn-md me-2 btn-primary text-dark rounded-circle" data-bs-toggle="modal" data-bs-target="#reportUser" @click="getId(j.userId)">
                                             <i class="bi bi-exclamation-circle"></i>
-                                        </button>
-                                        <button class="btn btn-md btn-primary me-3" :disabled="j.status == 2" @click="getHireUser(j.appliUser_id)">
-                                            Hire
                                         </button>
                                     </td>
                                 </tr>
@@ -107,14 +104,14 @@ if (!isset($_SESSION['userId'])) {
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../Assets/assets/lib/wow/wow.min.js"></script>
-    <script src="../../Assets/assets/lib/easing/easing.min.js"></script>
-    <script src="../../Assets/assets/lib/waypoints/waypoints.min.js"></script>
-    <script src="../../Assets/assets/lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="../../Assets/assets/js/main.js"></script>
+    <script src="../../../Assets/assets/lib/wow/wow.min.js"></script>
+    <script src="../../../Assets/assets/lib/easing/easing.min.js"></script>
+    <script src="../../../Assets/assets/lib/waypoints/waypoints.min.js"></script>
+    <script src="../../../Assets/assets/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../../../Assets/assets/js/main.js"></script>
     <script src="/pandayhub/BackEnd/vue/axios.js"></script>
     <script src="/pandayhub/BackEnd/vue/vue.3.js"></script>
-    <script src="/pandayhub/BackEnd/middleware/user/applicants.js"></script>
+    <script src="/pandayhub/BackEnd/middleware/user/hireds.js"></script>
 </body>
 
 </html>

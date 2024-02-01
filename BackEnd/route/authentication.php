@@ -16,7 +16,7 @@
 
     function registerUser(){
         $back = new authentication();
-        echo $back->doRegister($_POST['firstname'],$_POST['lastname'],$_POST['email'],$_POST['password']);
+        echo $back->doRegister($_POST['firstname'],$_POST['lastname'],$_POST['email'],$_POST['password'], $_POST['role']);
     }
 
 

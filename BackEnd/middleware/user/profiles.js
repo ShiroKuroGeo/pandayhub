@@ -16,7 +16,7 @@ createApp({
             const vue = this;
             var data = new FormData();
             data.append("METHOD", "userProfile");
-            axios.post('../../Backend/route/user.php', data)
+            axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     vue.getUserProfile = [];
 
@@ -54,7 +54,7 @@ createApp({
                 data.append("email", vue.email);
                 data.append("phn1", vue.phn1);
                 data.append("phn2", vue.phn2);
-                axios.post('../../Backend/route/user.php', data)
+                axios.post('../../../Backend/route/user.php', data)
                     .then(function (r) {
                         if (r.data == 200) {
                             alert('Successfully updated!');

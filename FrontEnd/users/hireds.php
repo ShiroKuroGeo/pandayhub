@@ -64,7 +64,7 @@ if (!isset($_SESSION['userId'])) {
                                         {{j.email}}
                                     </td>
                                     <td>
-                                        {{j.status == 1 ? 'Pending' : j.status == 2 ? 'Hired' : 'Decline'}}
+                                        Hired
                                     </td>
                                     <td>
                                         <a :href="'chatroom.php?id='+j.userId" class="btn btn-md me-2 btn-primary text-dark rounded-circle">

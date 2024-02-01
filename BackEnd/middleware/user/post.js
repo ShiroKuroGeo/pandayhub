@@ -17,7 +17,7 @@ createApp({
             const vue = this;
             var data = new FormData();
             data.append("METHOD", "myPostAsPanday");
-            axios.post('../../Backend/route/user.php', data)
+            axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     vue.pandays = [];
                     vue.pandaysLength = r.data.length;
@@ -40,7 +40,7 @@ createApp({
             const vue = this;
             var data = new FormData();
             data.append("METHOD", "myPostAsPanday");
-            axios.post('../../Backend/route/user.php', data)
+            axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     vue.selectedPanday = [];
 
@@ -63,7 +63,7 @@ createApp({
             const vue = this;
             var data = new FormData();
             data.append("METHOD", "myPostAsJob");
-            axios.post('../../Backend/route/user.php', data)
+            axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     vue.job = [];
                     vue.jobLength = r.data.length;
@@ -88,7 +88,7 @@ createApp({
             const vue = this;
             var data = new FormData();
             data.append("METHOD", "myPostAsJob");
-            axios.post('../../Backend/route/user.php', data)
+            axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     vue.selectedJob = [];
 
@@ -118,7 +118,7 @@ createApp({
             var data = new FormData();
             data.append("METHOD", "deletepanday");
             data.append("id", id);
-            axios.post('../../Backend/route/user.php', data)
+            axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     if (r.data) {
                         alert('Successfully deleted!');
@@ -132,7 +132,7 @@ createApp({
             var data = new FormData();
             data.append("METHOD", "deletejob");
             data.append("id", id);
-            axios.post('../../Backend/route/user.php', data)
+            axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     if (r.data) {
                         alert('Successfully deleted!');

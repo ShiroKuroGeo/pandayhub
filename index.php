@@ -44,8 +44,8 @@ if (isset($_SESSION['userId'])) {
     </nav>
 
     <!-- REGISTER MODAL -->
-    <div id="register" class="modal fade mt-5">
-      <div class="modal-dialog d-flex modal-dialog-center">
+    <div id="register" class="modal fade">
+      <div class="modal-dialog modal-dialog-center">
         <div class="modal-content">
           <div class="modal-body">
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
@@ -67,7 +67,7 @@ if (isset($_SESSION['userId'])) {
               </div>
               <div class="mb-3">
                 <label for="Email" class="me-5">Email</label>
-                <input type="email" name="email" class="form-control" id="email" required/>
+                <input type="email" name="email" class="form-control" id="email" />
               </div>
               <div class="mb-2 mt-3">
                 <label for="Password" class="me-3">Password</label>
@@ -76,6 +76,13 @@ if (isset($_SESSION['userId'])) {
               <div class="mb-2 mt-3">
                 <label for="Password" class="me-3">Confirm Password</label>
                 <input type="password" name="cpassword" class="form-control" id="cpassword" />
+              </div>
+              <div class="mb-2 mt-3">
+                <label for="Password" class="me-3">Be as</label>
+                <select class="form-control form-control-sm" v-model="role">
+                  <option value="1">Panday</option>
+                  <option value="3">Client</option>
+                </select>
               </div>
               <button @click="registerUsers" class="btn-modal btn fw-bold mt-3">REGISTER</button>
               <div class="d-flex mt-1">

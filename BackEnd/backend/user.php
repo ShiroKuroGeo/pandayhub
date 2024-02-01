@@ -17,6 +17,10 @@ class user
     {
         return $this->userProfileFunction($userId);
     }
+    public function applieJob($userId)
+    {
+        return $this->applieJobFunction($userId);
+    }
     public function deletepanday($userId)
     {
         return $this->deletepandayFunction($userId);
@@ -54,9 +58,9 @@ class user
         return $this->getAllHiredsFunction($userId);
     }
 
-    public function applynow($userId, $job_poser)
+    public function applynow($userId, $job_poser, $job_id)
     {
-        return $this->applynowFunction($userId, $job_poser);
+        return $this->applynowFunction($userId, $job_poser, $job_id);
     }
 
     public function hiredsPanday($userId, $hired)
@@ -64,9 +68,9 @@ class user
         return $this->hiredsPandayFunction($userId, $hired);
     }
 
-    public function storePanday($user_id, $Panday_location, $Panday_skill, $Panday_level)
+    public function storePanday($user_id, $Panday_location, $Panday_skill, $Panday_level, $exp)
     {
-        return $this->storePandayFunction($user_id, $Panday_location, $Panday_skill, $Panday_level);
+        return $this->storePandayFunction($user_id, $Panday_location, $Panday_skill, $Panday_level, $exp);
     }
 
     public function storeJobs($job_poser, $picture, $job_title, $job_project, $job_location, $job_require_exp, $job_payment)
@@ -79,13 +83,13 @@ class user
         return $this->updateInformationFunction($userId, $picture, $firstname, $lastname, $email, $phn1, $phn2);
     }
 
-    private function storePandayFunction($user_id, $Panday_location, $Panday_skill, $Panday_level)
+    private function storePandayFunction($user_id, $Panday_location, $Panday_skill, $Panday_level, $exp)
     {
         try {
             $db = new database();
             if ($db->getStatus()) {
                 $query = $db->getCon()->prepare($this->storePandayQuery());
-                $query->execute(array($user_id, $Panday_location, $Panday_skill, $Panday_level));
+                $query->execute(array($user_id, $Panday_location, $Panday_skill, $Panday_level, $exp));
                 $result = $query->fetch();
                 $db->closeConnection();
 
@@ -101,7 +105,7 @@ class user
             throw $th;
         }
     }
-    
+
     private function deletepandayFunction($user_id)
     {
         try {
@@ -124,21 +128,15 @@ class user
             throw $th;
         }
     }
-    private function deletejobFunction($user_id)
+
+    private function applieJobFunction($userId)
     {
         try {
             $db = new database();
             if ($db->getStatus()) {
-                $query = $db->getCon()->prepare($this->deletejobQuery());
-                $query->execute(array($user_id));
-                $result = $query->fetch();
-                $db->closeConnection();
-
-                if (!$result) {
-                    return 200;
-                } else {
-                    return 401;
-                }
+                $query = $db->getCon()->prepare($this->applieJobQuery());
+                $query->execute(array($userId));
+                return json_encode($query->fetchAll());
             } else {
                 return 501;
             }
@@ -258,20 +256,29 @@ class user
         }
     }
 
-    private function applynowFunction($userId, $job_poser)
+    private function applynowFunction($userId, $job_poser, $job_id)
     {
         try {
             $db = new database();
             if ($db->getStatus()) {
-                $query = $db->getCon()->prepare($this->applynowFunctionQuery());
-                $query->execute(array($job_poser, $userId));
-                $result = $query->fetch();
-                $db->closeConnection();
 
-                if (!$result) {
-                    return 200;
-                } else {
-                    return 401;
+                $query = $db->getCon()->prepare($this->checkIfAlreadyApplyQuery());
+                $query->execute(array($job_poser, $userId));
+                $result = $query->fetchAll();
+
+                if ($query->rowCount() < 1) {
+                    $query2 = $db->getCon()->prepare($this->applynowFunctionQuery());
+                    $query2->execute(array($job_poser, $job_id, $userId));
+                    $result2 = $query2->fetch();
+                    $db->closeConnection();
+
+                    if (!$result2) {
+                        return 200;
+                    } else {
+                        return 401;
+                    }
+                }else{
+                    return 400; 
                 }
             } else {
                 return 501;
@@ -326,6 +333,29 @@ class user
             throw $th;
         }
     }
+    private function deletejobFunction($userId)
+    {
+        try {
+            $db = new database();
+            if ($db->getStatus()) {
+                $query = $db->getCon()->prepare($this->deletejobQuery());
+                $query->execute(array($userId));
+                $result = $query->fetch();
+                $db->closeConnection();
+
+                if (!$result) {
+                    return 200;
+                } else {
+                    return 401;
+                }
+
+            } else {
+                return 501;
+            }
+        } catch (PDOException $th) {
+            throw $th;
+        }
+    }
 
     private function getAllHiredsFunction($userId)
     {
@@ -333,7 +363,7 @@ class user
             $db = new database();
             if ($db->getStatus()) {
                 $query = $db->getCon()->prepare($this->getAllHiredsQuery());
-                $query->execute(array($userId));
+                $query->execute(array($userId, $userId));
                 return json_encode($query->fetchAll());
             } else {
                 return 501;
@@ -409,7 +439,7 @@ class user
 
     private function storePandayQuery()
     {
-        return "INSERT INTO `panday`(`user_id`, `Panday_location`, `Panday_skill`, `Panday_level`) VALUES (?,?,?,?)";
+        return "INSERT INTO `panday`(`user_id`, `Panday_location`, `Panday_skill`, `Panday_level`, `panday_exp`) VALUES (?,?,?,?,?)";
     }
 
     private function storeJobsQuery()
@@ -427,11 +457,15 @@ class user
         return "SELECT * FROM `users` WHERE userId = ?";
     }
 
+    private function checkIfAlreadyApplyQuery()
+    {
+        return "SELECT * FROM `applicants` WHERE `poser_id` = ? AND `appliUser_id` = ?";
+    }
+
     private function hiredsPandayQuery()
     {
         return "INSERT INTO `hireds`(`user_id`, `user_hired`) VALUES (?,?)";
     }
-
 
     private function updateInformationQuery()
     {
@@ -440,7 +474,7 @@ class user
 
     private function applynowFunctionQuery()
     {
-        return "INSERT INTO `applicants`( `poser_id`, `appliUser_id`) VALUES (?,?)";
+        return "INSERT INTO `applicants`( `poser_id`,`job_id`, `appliUser_id`) VALUES (?,?,?)";
     }
 
     private function applicantsQuery()
@@ -450,12 +484,12 @@ class user
 
     private function getAllHiredsQuery()
     {
-        return "SELECT u.*, h.hired_id, h.status, h.created_at, h.updated_at FROM `hireds` AS h INNER JOIN `users` AS u ON h.user_hired = u.userId WHERE h.user_id = ? ORDER BY h.created_at desc;";
+        return "SELECT u.*, h.hired_id, h.status, h.created_at, h.updated_at FROM `hireds` AS h INNER JOIN `users` AS u ON h.user_hired = u.userId WHERE h.user_hired = ? OR h.user_id = ? ORDER BY h.created_at desc;";
     }
 
     private function deleteApplicantQuery()
     {
-        return "UPDATE `applicants` SET `status` = 2 WHERE `appliUser_id` = ?";
+        return "UPDATE `panday` SET `status` = 2 WHERE `user_id` = ?";
     }
 
     private function reportUsersQuery()
@@ -480,5 +514,9 @@ class user
     private function deletejobQuery()
     {
         return "DELETE FROM `jobs` WHERE `job_id` = ?";
+    }
+    private function applieJobQuery()
+    {
+        return 'SELECT ap.*, jo.picture, jo.job_title, jo.job_project, jo.job_location, jo.job_require_exp, jo.projectType, jo.job_payment, jo.job_status FROM `applicants` AS ap INNER JOIN `jobs` AS jo INNER JOIN `users` AS poser INNER JOIN `users` AS appli ON ap.poser_id = poser.userId AND ap.appliUser_id = appli.userId AND ap.job_id = jo.job_id WHERE ap.appliUser_id = ? ORDER BY ap.created_at DESC';
     }
 }

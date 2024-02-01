@@ -13,7 +13,7 @@ createApp({
             const vue = this;
             var data = new FormData();
             data.append("METHOD", "getAllHireds");
-            axios.post('../../Backend/route/user.php', data)
+            axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     vue.hireds = [];
 
@@ -40,14 +40,13 @@ createApp({
             data.append("METHOD", "reportUsers");
             data.append("reason", vue.reasonOfReport);
             data.append("id", id);
-            axios.post('../../Backend/route/user.php', data)
+            axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
-                //     if (r.data == 200) {
-                //         alert('User reported!');
-                //     } else {
-                //         alert('Cannot send the application');
-                //     }
-                alert(r.data);
+                    if (r.data == 200) {
+                        alert('User reported!');
+                    } else {
+                        alert('Cannot send the application');
+                    }
                 });
         },
         getId: function(id){

@@ -30,7 +30,7 @@ function jobs()
 function storePanday()
 {
     $back = new user();
-    echo $back->storePanday($_SESSION['userId'], $_POST['Panday_location'], $_POST['Panday_skill'], $_POST['Panday_level']);
+    echo $back->storePanday($_SESSION['userId'], $_POST['Panday_location'], $_POST['Panday_skill'], $_POST['Panday_level'], $_POST['exp']);
 }
 
 function storeJobs()
@@ -69,8 +69,7 @@ function updateInformation()
 function applynow()
 {
     $back = new user();
-
-    echo $back->applynow($_SESSION['userId'],  $_POST['job_poser']);
+    echo $back->applynow($_SESSION['userId'],  $_POST['job_poser'], $_POST['job_id']);
 }
 
 function applicants()
@@ -92,6 +91,12 @@ function getAllHireds()
     $back = new user();
 
     echo $back->getAllHireds($_SESSION['userId']);
+}
+function applieJob()
+{
+    $back = new user();
+
+    echo $back->applieJob($_SESSION['userId']);
 }
 
 function myPostAsPanday()

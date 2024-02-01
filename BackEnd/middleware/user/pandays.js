@@ -16,7 +16,7 @@ createApp({
             const vue = this;
             var data = new FormData();
             data.append("METHOD", "panday");
-            axios.post('../../Backend/route/user.php', data)
+            axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     vue.pandays = [];
 
@@ -43,7 +43,7 @@ createApp({
             data.append("Panday_location", vue.Panday_location);
             data.append("Panday_skill", vue.Panday_skill);
             data.append("Panday_level", vue.Panday_level);
-            axios.post('../../Backend/route/user.php', data)
+            axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     if (r.data == 200) {
                         alert("Hello");
@@ -56,7 +56,7 @@ createApp({
             const vue = this;
             var data = new FormData();
             data.append("METHOD", "getUser");
-            axios.post('../../Backend/route/user.php', data)
+            axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     alert(r.data);
                 });
@@ -66,7 +66,7 @@ createApp({
             var data = new FormData();
             data.append("METHOD", "hiredsPanday");
             data.append("id", id);
-            axios.post('../../Backend/route/user.php', data)
+            axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     vue.deleteHired(id);
                 });
@@ -76,7 +76,7 @@ createApp({
             var data = new FormData();
             data.append("METHOD", "deleteApplicant");
             data.append("userId", id);
-            axios.post('../../Backend/route/user.php', data)
+            axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     vue.getAllPanday();
                 });
@@ -85,7 +85,7 @@ createApp({
             const vue = this;
             var data = new FormData();
             data.append("METHOD", "panday");
-            axios.post('../../Backend/route/user.php', data)
+            axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     vue.selectedPanday = [];
 

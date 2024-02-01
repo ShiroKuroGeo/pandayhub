@@ -6,8 +6,8 @@
             return $this->loginFunction($username,$password);
         }
 
-        public function doRegister($firstname,$lastname,$email,$password){
-            return $this->Register($firstname,$lastname,$email,$password);
+        public function doRegister($firstname,$lastname,$email,$password, $role){
+            return $this->Register($firstname,$lastname,$email,$password, $role);
         }
 
         private function loginFunction($username,$password){
@@ -20,22 +20,25 @@
                     $status = null;
 
                     while($row = $query->fetch()){
-                        
                         $role = $row['role'];
                         $status = $row['status'];
                         $_SESSION['userId'] = $row['userId'];
                         $_SESSION['firstname'] = $row['firstname'];
                         $_SESSION['lastname'] = $row['lastname'];
                         $_SESSION['email'] = $row['email'];
+                        $_SESSION['role'] = $row['role'];
                     }
 
                     if($status == 1){
                         if($role == 1){
                             $con->closeConnection();
-                            return "activeUser";
+                            return 1;
+                        }else if($role == 3){
+                            $con->closeConnection();
+                            return 3;
                         }else if($role == 2){
                             $con->closeConnection();
-                            return "activeAdmin";
+                            return 2;
                         }else{
                             $con->closeConnection();
                             return "notActive";
@@ -51,12 +54,12 @@
             }
         }
 
-        private function Register($firstname,$lastname,$email,$password){
+        private function Register($firstname,$lastname,$email,$password, $role){
             try{
                 $con = new database();
                 if ($con->getStatus()){
                     $query = $con->getCon()->prepare($this->doregisterQuery());
-                    $query->execute(array($firstname,$lastname,$email, md5($password)));
+                    $query->execute(array($firstname,$lastname,$email, md5($password), $role));
                     $result = $query->fetch();
 
                     if (!$result) {
@@ -76,7 +79,7 @@
         }
 
         private function doregisterQuery(){
-            return "INSERT INTO `users`(`firstname`, `lastname`, `email`, `password`) VALUES (?,?,?,?)";
+            return "INSERT INTO `users`(`firstname`, `lastname`, `email`, `password`, `role`) VALUES (?,?,?,?,?)";
         }
 
         private function doLoginQuery(){
