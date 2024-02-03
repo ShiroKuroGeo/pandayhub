@@ -41,7 +41,7 @@
                             return 2;
                         }else{
                             $con->closeConnection();
-                            return "notActive";
+                            return 400;
                         }
                     }
 

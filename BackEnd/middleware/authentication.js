@@ -44,7 +44,11 @@ createApp({
             data.append("Password", document.getElementById('PasswordLogin').value);
             axios.post('Backend/route/authentication.php', data)
                 .then(function (r) {
-                    window.location.href = 'FrontEnd/users/view.php ';
+                    if(r.data == 400){
+                        alert('Credentials invalid!');
+                    }else{
+                        window.location.href = 'FrontEnd/users/view.php ';
+                    }
                 });
         },
 

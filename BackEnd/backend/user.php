@@ -405,10 +405,6 @@ class user
         }
     }
 
-
-
-
-
     private function reportUsersFunction($id, $reason, $usid)
     {
         try {
