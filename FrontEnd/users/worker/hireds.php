@@ -58,7 +58,7 @@ if (!isset($_SESSION['userId'])) {
                                         <img :src="'/pandayhub/Assets/img/'+ j.profile" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
                                     </td>
                                     <td>
-                                        {{j.lastname}} {{j.firstname}}
+                                        {{j.poserlast}} {{j.poserfirst}}
                                     </td>
                                     <td>
                                         {{j.email}}
@@ -67,10 +67,10 @@ if (!isset($_SESSION['userId'])) {
                                         Hired
                                     </td>
                                     <td>
-                                        <a :href="'chatroom.php?id='+j.userId" class="btn btn-md me-2 btn-primary text-dark rounded-circle">
+                                        <a :href="'chatroom.php?id='+j.cuid" class="btn btn-md me-2 btn-primary text-dark rounded-circle">
                                             <i class="bi bi-chat-dots col-2"></i>
                                         </a>
-                                        <button class="btn btn-md me-2 btn-primary text-dark rounded-circle" data-bs-toggle="modal" data-bs-target="#reportUser" @click="getId(j.userId)">
+                                        <button class="btn btn-md me-2 btn-primary text-dark rounded-circle" data-bs-toggle="modal" data-bs-target="#reportUser" @click="getId(j.cuid)">
                                             <i class="bi bi-exclamation-circle"></i>
                                         </button>
                                     </td>

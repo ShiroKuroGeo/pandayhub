@@ -70,7 +70,12 @@
                 <div class="container-fluid px-4">
 
                     <div class="row my-5">
-                        <h3 class="primary-text fs-4 mb-3">Recent Reports</h3>
+                        <div class="d-flex justify-content-between">
+                            <h3 class="primary-text fs-4 mb-3">Recent Reports</h3>
+                            <div class="col-2">
+                                <input type="text" v-model="searchThisUser" class="col-12 form-control" placeholder="Enter User Info">
+                            </div>
+                        </div>
                         <div class="col">
                             <table class="table rounded shadow-sm">
                                 <thead class="">
@@ -82,7 +87,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="g of getAllReported">
+                                    <tr v-for="g of searchReportUser">
                                         <td class="text-capitalize">{{g.lastname}}, {{g.firstname}}</td>
                                         <td class="text-capitalize">{{g.repLastname}}, {{g.repFirstname}}</td>
                                         <td class="text-capitalize">{{g.reason}}</td>

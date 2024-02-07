@@ -38,7 +38,7 @@ if (!isset($_SESSION['userId'])) {
         <div class="container-xxl py-5 vh-100">
             <div class="container">
                 <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Applicants List</h1>
-                <!-- <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
+                <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
                     <div class="tab-content">
                         <table class="table">
                             <thead>
@@ -46,35 +46,34 @@ if (!isset($_SESSION['userId'])) {
                                     <th scope="col">#</th>
                                     <th scope="col">Profile</th>
                                     <th scope="col">Panday Name</th>
-                                    <th scope="col">Panday Email</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(j, index) of applicants">
+                                <tr v-for="(j, index) of hirerDatas">
                                     <th scope="row">{{1+index++}}</th>
                                     <td>
                                         <img :src="'/pandayhub/Assets/img/'+ j.profile" style="width: 60px; height: 60px" class="rounded-circle">
                                     </td>
                                     <td>
-                                        {{j.lastname}} {{j.firstname}}
-                                    </td>
-                                    <td>
-                                        {{j.email}}
+                                        {{j.hiredlast}} {{j.hiredfirst}}
                                     </td>
                                     <td>
                                         {{j.status == 1 ? 'Pending' : j.status == 2 ? 'Hired' : 'Decline'}}
                                     </td>
                                     <td>
-                                        <a :href="'chatroom.php?id='+j.appliUser_id" class="btn btn-md btn-primary me-3 rounded-circle">
+                                        <a :href="'chatroom.php?id='+j.user_hired" class="btn btn-md btn-primary me-3 rounded-circle">
                                             <i class="bi bi-chat-dots col-2"></i>
                                         </a>
-                                        <button class="btn btn-md btn-primary me-3 rounded-circle" data-bs-toggle="modal" data-bs-target="#reportUser" @click="getId(j.appliUser_id)">
+                                        <button class="btn btn-md btn-primary me-3 rounded-circle" data-bs-toggle="modal" data-bs-target="#reportUser" @click="getId(j.user_hired)">
                                             <i class="bi bi-exclamation-circle"></i>
                                         </button>
-                                        <button class="btn btn-md btn-primary me-3" :disabled="j.status == 2" @click="getHireUser(j.appliUser_id)">
-                                            Hire
+                                        <button :class="j.status == 1 ? 'btn btn-md btn-primary me-3' : 'btn btn-md btn-primary me-3 visually-hidden'" @click="completeHired(j.user_hired)">
+                                            Complete Hire
+                                        </button>
+                                        <button :class="j.status == 5 ? 'btn btn-md btn-primary me-3' : 'btn btn-md btn-primary me-3 visually-hidden'" @click="workCompleted(j.user_hired)">
+                                            Work Completed
                                         </button>
                                     </td>
                                 </tr>
@@ -100,7 +99,7 @@ if (!isset($_SESSION['userId'])) {
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>

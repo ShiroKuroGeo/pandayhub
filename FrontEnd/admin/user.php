@@ -55,11 +55,11 @@
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle primary-text fw-bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-user me-2"></i>
-                                    <span class="text-capitalize">{{firstname}}</span </a>
+                                    <span class="text-capitalize">{{firstname}}</span> </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <li><a href="#" class="dropdown-item">Profile</a></li>
                                         <li><a href="#" class="dropdown-item">Settings</a></li>
-                                        <hr class="dropdown-divider">
+                                        <hr class="dropdown-divider">   
                                         <li><a href="/pandayhub/Backend/logout.php" class="dropdown-item">Logout</a></li>
                                     </ul>
                             </li>
@@ -67,9 +67,13 @@
                     </div>
                 </nav>
                 <div class="container-fluid px-4">
-
                     <div class="row my-5">
-                        <h3 class="primary-text fs-4 mb-3">Recent Users</h3>
+                        <div class="d-flex justify-content-between">
+                            <h3 class="primary-text fs-4 mb-3">Recent Users</h3>
+                            <div class="col-2">
+                                <input type="text" v-model="searchThisUser" class="col-12 form-control" placeholder="Enter User Info">
+                            </div>
+                        </div>
                         <div class="col">
                             <table class="table rounded shadow-sm">
                                 <thead class="">
@@ -86,7 +90,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(au, index) of allUsers">
+                                    <tr v-for="(au, index) of searchUser">
                                         <td widtd="50">{{1+index++}}</td>
                                         <td>
                                             <img :src="'/pandayhub/assets/img/'+au.profile" width="120" height="80">

@@ -20,6 +20,7 @@
             <div class="dropdown-menu">
                 <li><a class="dropdown-item" href="profiles.php" id="post">Profile</a></li>
                 <li><a class="dropdown-item" href="chats.php" id="post">Messages</a></li>
+                <li><a class="dropdown-item" href="history.php" id="post">History</a></li>
                 <li><a class="dropdown-item" href="post.php" id="post">My Post</a></li>
                 <li><a class="dropdown-item" href="../../../BackEnd/logout.php" id="logout">Logout</a></li>
             </div>

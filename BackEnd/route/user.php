@@ -86,6 +86,20 @@ function hiredsPanday()
     echo $back->hiredsPanday($_SESSION['userId'], $_POST['id']);
 }
 
+function completeHired()
+{
+    $back = new user();
+
+    echo $back->completeHired($_POST['id']);
+}
+
+function workCompleted()
+{
+    $back = new user();
+
+    echo $back->workCompleted($_POST['id']);
+}
+
 function getAllHireds()
 {
     $back = new user();
@@ -111,6 +125,18 @@ function myPostAsJob()
 
     echo $back->myPostAsJob($_SESSION['userId']);
 }
+function hirer()
+{
+    $back = new user();
+
+    echo $back->hirer($_SESSION['userId']);
+}
+function worker()
+{
+    $back = new user();
+
+    echo $back->worker($_SESSION['userId']);
+}
 
 function deleteApplicant()
 {
@@ -135,4 +161,10 @@ function reportUsers()
 {
     $applicant = new user();
     echo $applicant->reportUsers($_SESSION['userId'], $_POST['reason'], $_POST['id']);
+}
+
+function rateme()
+{
+    $applicant = new user();
+    echo $applicant->rateme($_POST['id'], $_POST['rate'],$_SESSION['userId']);
 }

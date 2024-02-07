@@ -25,6 +25,8 @@ createApp({
                             location: v.Panday_location,
                             skill: v.Panday_skill,
                             level: v.Panday_level,
+                            rating: v.rating,
+                            no_of_rating: v.no_of_rating,
                             created_at: v.created_at,
                             update_at: v.update_at,
                             userId: v.userId,

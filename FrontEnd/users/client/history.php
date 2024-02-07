@@ -26,7 +26,7 @@ if (!isset($_SESSION['userId'])) {
 </head>
 
 <body>
-    <div class="container-fluid bg-white p-0" id="applicantsHub">
+    <div class="container-fluid bg-white p-0 vh-100" id="applicantsHub">
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
@@ -37,53 +37,40 @@ if (!isset($_SESSION['userId'])) {
         ?>
         <div class="container-xxl py-5 vh-100">
             <div class="container">
-                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Applied Job</h1>
+                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">History</h1>
                 <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
                     <div class="tab-content">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Picture</th>
-                                    <th scope="col">Job Project From</th>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Project</th>
-                                    <th scope="col">Location</th>
-                                    <th scope="col">Project Type</th>
-                                    <th scope="col">Payment</th>
+                                    <th scope="col">Profile</th>
+                                    <th scope="col">Panday Name</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-capitalize">
-                                <tr v-for="(j, index) of workerApplications">
+                            <tbody>
+                                <tr v-for="(j, index) of hirerDatasHistory">
                                     <th scope="row">{{1+index++}}</th>
                                     <td>
-                                        <img :src="'/pandayhub/Assets/img/'+ j.picture" style="width: 60px; height: 60px" class="rounded-circle">
+                                        <img :src="'/pandayhub/Assets/img/'+ j.profile" style="width: 60px; height: 60px" class="rounded-circle">
                                     </td>
                                     <td>
-                                        {{j.poserLast}} {{j.poserfirst}}
+                                        {{j.hiredlast}} {{j.hiredfirst}}
                                     </td>
                                     <td>
-                                        {{j.job_title}}
+                                        Work Completed
                                     </td>
                                     <td>
-                                        {{j.job_project}}
-                                    </td>
-                                    <td>
-                                        {{j.job_location}}
-                                    </td>
-                                    <td>
-                                        {{j.projectType}}
-                                    </td>
-                                    <td>
-                                        {{j.job_payment}}
-                                    </td>
-                                    <td>
-                                        <a :href="'chatroom.php?id='+j.appliUser_id" class="btn btn-md btn-primary me-3 rounded-circle">
+                                        <a :href="'chatroom.php?id='+j.user_hired" class="btn btn-md btn-primary me-3 rounded-circle">
                                             <i class="bi bi-chat-dots col-2"></i>
                                         </a>
-                                        <button class="btn btn-md btn-primary me-3 rounded-circle" data-bs-toggle="modal" data-bs-target="#reportUser" @click="getId(j.appliUser_id)">
+                                        <button class="btn btn-md btn-primary me-3 rounded-circle" data-bs-toggle="modal" data-bs-target="#reportUser" @click="getId(j.user_hired)">
                                             <i class="bi bi-exclamation-circle"></i>
+                                        </button>
+                                        <button :class="j.status == 4 ? 'btn btn-md btn-primary me-3' : 'btn btn-md btn-primary me-3 visually-hidden'" data-bs-toggle="modal" data-bs-target="#rateme" @click="getId(j.user_hired)">
+                                            Rate
                                         </button>
                                     </td>
                                 </tr>
@@ -105,6 +92,32 @@ if (!isset($_SESSION['userId'])) {
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary" @click="reportUsers(id)">Report</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="rateme" tabindex="-1" aria-labelledby="ratemeLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ratemeLabel">Rate User</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-start">
+                                    <div class="form-input text-dark">
+                                        <select v-model="rate" class="form-control">
+                                            <option value="0" selected hidden>Rate</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" @click="rateme(id)">Rate</button>
                                 </div>
                             </div>
                         </div>

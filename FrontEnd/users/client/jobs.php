@@ -50,6 +50,9 @@ if (!isset($_SESSION['userId'])) {
                                             <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{p.location}}</span>
                                             <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>{{p.skill}}</span>
                                             <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>{{p.level}}</small>
+                                            <small class="text-truncate"><i class="far fa-calendar-alt text-primary ms-2"></i>
+                                                {{ isNaN((p.rating / (p.no_of_rating * 5)) * 100) ? '0' : ((p.rating / (p.no_of_rating * 5)) * 100) }}%
+                                            </small>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">

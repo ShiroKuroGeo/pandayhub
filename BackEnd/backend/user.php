@@ -12,7 +12,6 @@ class user
     {
         return $this->jobsFunction();
     }
-
     public function userProfile($userId)
     {
         return $this->userProfileFunction($userId);
@@ -36,6 +35,22 @@ class user
     public function myPostAsJob($userId)
     {
         return $this->myPostAsJobFunction($userId);
+    }
+    public function hirer($userId)
+    {
+        return $this->hirerFunction($userId);
+    }
+    public function worker($userId)
+    {
+        return $this->workerFunction($userId);
+    }
+    public function completeHired($userId)
+    {
+        return $this->completeHiredFunction($userId);
+    }
+    public function workCompleted($userId)
+    {
+        return $this->workCompletedFunction($userId);
     }
 
     public function deleteApplicant($userId)
@@ -66,6 +81,11 @@ class user
     public function hiredsPanday($userId, $hired)
     {
         return $this->hiredsPandayFunction($userId, $hired);
+    }
+
+    public function rateme($id, $rate, $myid)
+    {
+        return $this->ratemeFunction($id, $rate, $myid);
     }
 
     public function storePanday($user_id, $Panday_location, $Panday_skill, $Panday_level, $exp)
@@ -273,12 +293,13 @@ class user
                     $db->closeConnection();
 
                     if (!$result2) {
+                        $this->hiredsPandayFunction($job_poser, $userId);
                         return 200;
                     } else {
                         return 401;
                     }
-                }else{
-                    return 400; 
+                } else {
+                    return 400;
                 }
             } else {
                 return 501;
@@ -302,6 +323,53 @@ class user
                     return 200;
                 } else {
                     return 401;
+                }
+            } else {
+                return 501;
+            }
+        } catch (PDOException $th) {
+            throw $th;
+        }
+    }
+
+    private function ratemeFunction($id, $rate, $myid)
+    {
+        try {
+            $db = new database();
+            if ($db->getStatus()) {
+                $query = $db->getCon()->prepare($this->ratemeQuery());
+                $query->execute(array($rate, $id));
+                $result = $query->fetch();
+                $db->closeConnection();
+
+                if (!$result) {
+                    $this->afterratemeFunction($id, $myid);
+                    return 200;
+                } else {
+                    return 401;
+                }
+            } else {
+                return 501;
+            }
+        } catch (PDOException $th) {
+            throw $th;
+        }
+    }
+
+    private function afterratemeFunction($id, $myid)
+    {
+        try {
+            $db = new database();
+            if ($db->getStatus()) {
+                $getQuery = $db->getCon()->prepare('UPDATE `hireds` SET `status`= 10 WHERE `user_hired` = ? AND `user_id` = ?');
+                $getQuery->execute(array($id, $myid));
+                $getResult = $getQuery->fetch();
+                $db->closeConnection();
+
+                if (!$getResult) {
+                    return 200;
+                } else {
+                    return 400;
                 }
             } else {
                 return 501;
@@ -348,7 +416,6 @@ class user
                 } else {
                     return 401;
                 }
-
             } else {
                 return 501;
             }
@@ -405,6 +472,81 @@ class user
         }
     }
 
+    private function hirerFunction($userId)
+    {
+        try {
+            $db = new database();
+            if ($db->getStatus()) {
+                $query = $db->getCon()->prepare($this->hirerQuery());
+                $query->execute(array($userId));
+                return json_encode($query->fetchAll());
+            } else {
+                return 501;
+            }
+        } catch (PDOException $th) {
+            throw $th;
+        }
+    }
+    private function workerFunction($userId)
+    {
+        try {
+            $db = new database();
+            if ($db->getStatus()) {
+                $query = $db->getCon()->prepare($this->workerQuery());
+                $query->execute(array($userId));
+                return json_encode($query->fetchAll());
+            } else {
+                return 501;
+            }
+        } catch (PDOException $th) {
+            throw $th;
+        }
+    }
+
+    private function completeHiredFunction($userId)
+    {
+        try {
+            $db = new database();
+            if ($db->getStatus()) {
+                $query = $db->getCon()->prepare($this->completeHiredQuery());
+                $query->execute(array($userId));
+                $result = $query->fetch();
+
+                if (!$result) {
+                    return 200;
+                } else {
+                    return 400;
+                }
+            } else {
+                return 501;
+            }
+        } catch (PDOException $th) {
+            throw $th;
+        }
+    }
+
+    private function workCompletedFunction($userId)
+    {
+        try {
+            $db = new database();
+            if ($db->getStatus()) {
+                $query = $db->getCon()->prepare($this->workCompletedQuery());
+                $query->execute(array($userId));
+                $result = $query->fetch();
+
+                if (!$result) {
+                    return 200;
+                } else {
+                    return 400;
+                }
+            } else {
+                return 501;
+            }
+        } catch (PDOException $th) {
+            throw $th;
+        }
+    }
+
     private function reportUsersFunction($id, $reason, $usid)
     {
         try {
@@ -430,7 +572,7 @@ class user
 
     private function pandayQuery()
     {
-        return "SELECT p.status, p.Panday_location, p.Panday_skill, p.Panday_level, p.created_at, p.update_at, u.userId, u.profile, u.firstname, u.lastname FROM panday as p INNER JOIN users as u on p.user_id = u.userId";
+        return "SELECT p.status, p.Panday_location, p.Panday_skill, p.Panday_level, p.created_at, p.update_at, u.userId, u.profile, u.firstname, u.lastname, u.rating, u.no_of_rating FROM panday as p INNER JOIN users as u on p.user_id = u.userId";
     }
 
     private function storePandayQuery()
@@ -480,12 +622,22 @@ class user
 
     private function getAllHiredsQuery()
     {
-        return "SELECT u.*, h.hired_id, h.status, h.created_at, h.updated_at FROM `hireds` AS h INNER JOIN `users` AS u ON h.user_hired = u.userId WHERE h.user_hired = ? OR h.user_id = ? ORDER BY h.created_at desc;";
+        return "SELECT u.*,client.userId as cuid, client.firstname as poserfirst, client.lastname as poserlast, h.hired_id, h.status, h.created_at, h.updated_at FROM `hireds` AS h INNER JOIN `users` AS u ON h.user_hired = u.userId INNER JOIN `users` AS client ON client.userId = h.user_id WHERE h.user_hired = ? OR h.user_id = ? ORDER BY h.created_at desc;";
     }
 
     private function deleteApplicantQuery()
     {
         return "UPDATE `panday` SET `status` = 2 WHERE `user_id` = ?";
+    }
+
+    private function completeHiredQuery()
+    {
+        return "UPDATE `hireds` SET `status` = 5 WHERE `user_hired` = ?";
+    }
+
+    private function workCompletedQuery()
+    {
+        return "UPDATE `hireds` SET `status` = 4 WHERE `user_hired` = ?";
     }
 
     private function reportUsersQuery()
@@ -513,6 +665,18 @@ class user
     }
     private function applieJobQuery()
     {
-        return 'SELECT ap.*, jo.picture, jo.job_title, jo.job_project, jo.job_location, jo.job_require_exp, jo.projectType, jo.job_payment, jo.job_status FROM `applicants` AS ap INNER JOIN `jobs` AS jo INNER JOIN `users` AS poser INNER JOIN `users` AS appli ON ap.poser_id = poser.userId AND ap.appliUser_id = appli.userId AND ap.job_id = jo.job_id WHERE ap.appliUser_id = ? ORDER BY ap.created_at DESC';
+        return 'SELECT ap.*, jo.picture, jo.job_title, jo.job_project, jo.job_location, jo.job_require_exp, jo.projectType, jo.job_payment, jo.job_status, poser.firstname as poserfirst, poser.lastname as poserLast FROM `applicants` AS ap INNER JOIN `jobs` AS jo INNER JOIN `users` AS poser INNER JOIN `users` AS appli ON ap.poser_id = poser.userId AND ap.appliUser_id = appli.userId AND ap.job_id = jo.job_id WHERE ap.appliUser_id = ? ORDER BY ap.created_at DESC';
+    }
+    private function hirerQuery()
+    {
+        return 'SELECT h.status,h.hired_id, hirer.firstname AS hirerfirst, hirer.lastname AS hirerlast, hired.firstname AS hiredfirst, hired.lastname AS hiredlast, hired.profile, h.user_hired FROM hireds AS h INNER JOIN users as hirer ON h.user_id = hirer.userId INNER JOIN users AS hired ON hired.userId = h.user_hired WHERE h.user_id = ?';
+    }
+    private function workerQuery()
+    {
+        return 'SELECT h.status,h.hired_id, hirer.firstname AS hirerfirst, hirer.lastname AS hirerlast, worker.firstname AS hiredfirst, worker.lastname AS hiredlast, worker.profile, h.user_hired FROM hireds AS h INNER JOIN users as hirer ON h.user_id = hirer.userId INNER JOIN users AS worker ON worker.userId = h.user_hired WHERE h.user_hired = ?';
+    }
+    private function ratemeQuery()
+    {
+        return 'UPDATE `users` SET `rating`= `rating` + ?, `no_of_rating`= `no_of_rating` + 1 WHERE `userId` = ?';
     }
 }

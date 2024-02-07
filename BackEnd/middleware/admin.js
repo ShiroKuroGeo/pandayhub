@@ -7,6 +7,7 @@ createApp({
             allUsers: [],
             getAllReported: [],
             firstname: '',
+            searchThisUser: '',
             selectedOption: 0,
         }
     },
@@ -75,7 +76,6 @@ createApp({
             data.append("METHOD", "getAllUsers");
             axios.post('../../Backend/route/admin.php', data)
                 .then(function (r) {
-                    console.log(r.data);
                     vue.allUsers = [];
 
                     for (var v of r.data) {
@@ -179,5 +179,27 @@ createApp({
         this.getAllUsers();
         this.my();
         this.getReportedUsers();
+    },
+    computed: {
+        searchUser(){
+            if(this.searchThisUser == ''){
+                return this.allUsers;
+            }
+
+            return this.allUsers.filter(sr => sr.firstname.toLowerCase().includes(this.searchThisUser.toLowerCase()) || 
+                                        sr.lastname.toLowerCase().includes(this.searchThisUser.toLowerCase()) ||
+                                        sr.email.toLowerCase().includes(this.searchThisUser.toLowerCase())
+                                        );
+        },
+        searchReportUser(){
+            if(this.searchThisUser == ''){
+                return this.getAllReported;
+            }
+            return this.getAllReported.filter(sr => sr.repFirstname.toLowerCase().includes(this.searchThisUser.toLowerCase()) || 
+                                        sr.repLastname.toLowerCase().includes(this.searchThisUser.toLowerCase()) ||
+                                        sr.firstname.toLowerCase().includes(this.searchThisUser.toLowerCase()) ||
+                                        sr.lastname.toLowerCase().includes(this.searchThisUser.toLowerCase())
+                                        );
+        },
     }
 }).mount('#adminHub')

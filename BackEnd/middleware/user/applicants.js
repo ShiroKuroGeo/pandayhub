@@ -4,8 +4,15 @@ createApp({
     data() {
         return {
             applicants: [],
+            hirerDatas: [],
+            hirerDatasHistory: [],
+            workerApplications: [],
+            workerDatas: [],
+            hirerDatasRate: [],
+            workerDatasHistory: [],
             reasonOfReport: '',
-            id: 0
+            id: 0,
+            rate: 0
         }
     },
     methods: {
@@ -33,16 +40,108 @@ createApp({
                     }
                 });
         },
-        applicant() {
+        hirer() {
+            const vue = this;
+            var data = new FormData();
+            data.append("METHOD", "hirer");
+            axios.post('../../../Backend/route/user.php', data)
+                .then(function (r) {
+                    vue.hirerDatas = [];
+                    vue.hirerDatasHistory = [];
+                    vue.hirerDatasRate = [];
+
+                    for (var v of r.data) {
+                        if (v.status != 4) {
+                            vue.hirerDatas.push({
+                                status: v.status,
+                                user_hired: v.user_hired,
+                                hired_id: v.hired_id,
+                                hirerfirst: v.hirerfirst,
+                                hirerlast: v.hirerlast,
+                                hiredfirst: v.hiredfirst,
+                                hiredlast: v.hiredlast,
+                                profile: v.profile,
+                            })
+                        }
+                        if (v.status == 10) {
+                            vue.hirerDatasHistory.push({
+                                status: v.status,
+                                user_hired: v.user_hired,
+                                hired_id: v.hired_id,
+                                hirerfirst: v.hirerfirst,
+                                hirerlast: v.hirerlast,
+                                hiredfirst: v.hiredfirst,
+                                hiredlast: v.hiredlast,
+                                profile: v.profile,
+                            })
+                        }
+                        if (v.status == 4) {
+                            vue.hirerDatasRate.push({
+                                status: v.status,
+                                user_hired: v.user_hired,
+                                hired_id: v.hired_id,
+                                hirerfirst: v.hirerfirst,
+                                hirerlast: v.hirerlast,
+                                hiredfirst: v.hiredfirst,
+                                hiredlast: v.hiredlast,
+                                profile: v.profile,
+                            })
+                        }
+                    }
+                });
+        },
+        worker() {
+            const vue = this;
+            var data = new FormData();
+            data.append("METHOD", "worker");
+            axios.post('../../../Backend/route/user.php', data)
+                .then(function (r) {
+                    vue.workerDatas = [];
+                    vue.workerDatasHistory = [];
+
+                    for (var v of r.data) {
+                        if (v.status != 4) {
+                            vue.workerDatas.push({
+                                status: v.status,
+                                user_hired: v.user_hired,
+                                hired_id: v.hired_id,
+                                hirerfirst: v.hirerfirst,
+                                hirerlast: v.hirerlast,
+                                workerfirst: v.workerfirst,
+                                workerlast: v.workerlast,
+                                profile: v.profile,
+                            })
+                        }
+                        if (v.status == 4) {
+                            vue.workerDatasHistory.push({
+                                status: v.status,
+                                user_hired: v.user_hired,
+                                hired_id: v.hired_id,
+                                hirerfirst: v.hirerfirst,
+                                hirerlast: v.hirerlast,
+                                hiredfirst: v.hiredfirst,
+                                hiredlast: v.hiredlast,
+                                profile: v.profile,
+                            })
+                        }
+
+                    }
+                });
+        },
+        workerApplication() {
             const vue = this;
             var data = new FormData();
             data.append("METHOD", "applieJob");
             axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
-                    vue.applicants = [];
+                    console.log(r.data);
+                    vue.workerApplications = [];
 
                     for (var v of r.data) {
-                        vue.applicants.push({
+                        vue.workerApplications.push({
+                            appli_id: v.appli_id,
+                            poserfirst: v.poserfirst,
+                            poserLast: v.poserLast,
                             picture: v.picture,
                             job_title: v.job_title,
                             job_project: v.job_project,
@@ -63,6 +162,47 @@ createApp({
             axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     vue.deleteHired(id);
+                    window.location.reload();
+                });
+        },
+        completeHired: function (id) {
+            const vue = this;
+            var data = new FormData();
+            data.append("METHOD", "completeHired");
+            data.append("id", id);
+            axios.post('../../../Backend/route/user.php', data)
+                .then(function (r) {
+                    window.location.reload();
+                });
+        },
+        workCompleted: function (id) {
+            const vue = this;
+            var data = new FormData();
+            data.append("METHOD", "workCompleted");
+            data.append("id", id);
+            axios.post('../../../Backend/route/user.php', data)
+                .then(function (r) {
+                    if (r.data == 200) {
+                        window.location.href = 'rate.php';
+                    } else {
+                        alert('Something is wrong!');
+                    }
+                });
+        },
+        rateme: function (id) {
+            const vue = this;
+            var data = new FormData();
+            data.append("METHOD", "rateme");
+            data.append("id", id);
+            data.append("rate", this.rate);
+            axios.post('../../../Backend/route/user.php', data)
+                .then(function (r) {
+                    if (r.data == 200) {
+                        // alert('Rated!');
+                        window.location.href = 'history.php'
+                    } else {
+                        alert('Not Rated!');
+                    }
                 });
         },
         deleteHired: function (id) {
@@ -90,11 +230,14 @@ createApp({
                     }
                 });
         },
-        getId: function(id){
+        getId: function (id) {
             this.id = id;
         },
     },
     created: function () {
         this.applicant();
+        this.hirer();
+        this.workerApplication();
+        this.worker();
     }
 }).mount('#applicantsHub')

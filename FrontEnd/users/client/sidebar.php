@@ -16,11 +16,13 @@
 
         </div>
         <div class="navbar-nav dropdown me-5">
-            <a href="#" class="nav-link fw-bold" data-bs-toggle="dropdown">Jovet</a>
+            <a href="#" class="nav-link fw-bold" data-bs-toggle="dropdown"> <?php echo $_SESSION['lastname'] . ', ' . $_SESSION['firstname']; ?></a>
             <div class="dropdown-menu">
                 <li><a class="dropdown-item" href="profiles.php" id="post">Profile</a></li>
                 <li><a class="dropdown-item" href="chats.php" id="post">Messages</a></li>
                 <li><a class="dropdown-item" href="post.php" id="post">My Post</a></li>
+                <li><a class="dropdown-item" href="rate.php" id="post">Rate Panday</a></li>
+                <li><a class="dropdown-item" href="history.php" id="post">History</a></li>
                 <li><a class="dropdown-item" href="../../../BackEnd/logout.php" id="logout">Logout</a></li>
             </div>
         </div>
