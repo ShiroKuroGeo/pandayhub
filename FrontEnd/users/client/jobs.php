@@ -25,7 +25,7 @@ if (!isset($_SESSION['userId'])) {
     <link href="../../../Assets/assets/css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body >
     <div class="container-fluid bg-white p-0 " id="petStore">
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -50,18 +50,35 @@ if (!isset($_SESSION['userId'])) {
                                             <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{p.location}}</span>
                                             <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>{{p.skill}}</span>
                                             <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>{{p.level}}</small>
-                                            <small class="text-truncate"><i class="far fa-calendar-alt text-primary ms-2"></i>
-                                                {{ isNaN((p.rating / (p.no_of_rating * 5)) * 100) ? '0' : ((p.rating / (p.no_of_rating * 5)) * 100) }}%
+                                            <small class="text-truncate"><i class="fa fa-star text-primary ms-2"></i>
+                                                {{ round(isNaN((p.rating / (p.no_of_rating * 5)) * 100) ? '0' : ((p.rating / (p.no_of_rating * 5)) * 100)) }}%
                                             </small>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                                         <div class="d-flex mb-3">
-                                            <button class="btn btn-primary text-dark me-2" :disabled="p.status == 2" @click="getHireUser(p.userId)">{{p.status == 1 ? 'Hire' : 'Hired'}}</button>
+                                            <button class="btn btn-primary text-dark me-2" :disabled="p.status == 2" data-bs-toggle="modal" data-bs-target="#getIdS" @click="getId(p.userId)">{{p.status == 1 ? 'Hire' : 'Hired'}}</button>
                                             <button class="btn btn-primary text-dark me-2" @click="getUserById(p.userId)" data-bs-toggle="modal" data-bs-target="#viewManagement"><i class="bi bi-eye" title="View"></i></button>
                                             <a :href="'chatroom.php?id='+p.userId" class="btn btn-sm btn-primary text-dark"><i class="bi bi-chat-dots col-2"></i></a>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="getIdS" tabindex="-1" aria-labelledby="getIdSLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="getIdSLabel">Confirmation</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure want to hire this person?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" @click="getHireUser(id)">Confirm</button>
                                 </div>
                             </div>
                         </div>

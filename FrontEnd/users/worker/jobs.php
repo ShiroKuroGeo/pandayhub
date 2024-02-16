@@ -26,7 +26,7 @@ if (!isset($_SESSION['userId'])) {
 </head>
 
 <body>
-    <div class="container-fluid bg-white p-0 " id="jobshub">
+    <div class="container-fluid bg-white p-0 vh-100" id="jobshub">
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
@@ -64,18 +64,59 @@ if (!isset($_SESSION['userId'])) {
                                         <div class="text-start ps-4">
                                             <h5 class="mb-3 text-primary">{{j.job_title}}</h5>
                                             <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{j.job_location}}</span>
-                                            <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>{{j.projectType}}</span>
-                                            <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>{{j.job_payment}}</span>
-                                            <h6 class="text-truncate text-primary mt-2"><i class="far fa-calendar-alt me-2"></i>{{j.job_require_exp}}</h6>
+                                            <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>{{j.job_payment}} {{j.job_project == 'Daily' ? 'Per Day': 'Amount'}} </span>
+                                            <h6 class="text-truncate text-primary mt-2">Experience: {{j.job_require_exp}}</h6>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                                         <div :class="j.job_poser != <?php echo $_SESSION['userId'] ?> ? 'd-flex mb-3' : 'd-flex mb-3 visually-hidden'">
-                                            <a class="btn btn-primary text-dark" @click="applyNow(j.job_poser, j.job_id)">Apply Now</a>
+                                            <button type="button" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#selectedJobsModal" @click="selectedJob(j.job_id)">Apply</button>
+                                            <!-- <a class="btn btn-primary text-dark" @click="applyNow(j.job_poser, j.job_id)">Apply</a> -->
                                         </div>
                                         <div :class="j.job_poser == <?php echo $_SESSION['userId'] ?> ? 'd-flex mb-3' : 'd-flex mb-3 visually-hidden'">
-                                            <button class="btn btn-primary text-dark" disabled>Apply Now</button>
+                                            <button class="btn btn-primary text-dark" disabled>Apply</button>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="selectedJobsModal" tabindex="-1" aria-labelledby="selectedJobsModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content" v-for="sr of selectedIdJob">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="selectedJobsModalLabel">Apply</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="text-primary text-start">
+                                            <div class="mb-3 mt-3">
+                                                <label for="Email" class="me-5">Job Title</label>
+                                                <input type="text" readonly class="form-control" :value="sr.job_title" />
+                                            </div>
+                                            <div class="mb-3 mt-3">
+                                                <label for="Email" class="me-5">Location</label>
+                                                <input type="text" readonly class="form-control" :value="sr.job_location" />
+                                            </div>
+                                            <div class="mb-3 mt-3">
+                                                <label for="Password" class="me-3 fw-bold">Project Type</label>
+                                                <select :value="sr.job_project" disabled class="form-control">
+                                                    <option value="" selected hidden>Select Project Type</option>
+                                                    <option value="Daily">Daily</option>
+                                                    <option value="Pakyaw">Pakyaw</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 mt-3">
+                                                <label for="Password" class="me-3">Amount {{ job_project == 'Daily' ? 'Per Day' : job_project == 'Pakyaw' ? 'Pakyaw' : '' }}</label>
+                                                <input type="text" readonly class="form-control" :value="sr.job_payment" />
+                                            </div>
+                                            <div class="mb-3 mt-3">
+                                                <label for="Password" class="me-3">Experience</label>
+                                                <textarea value="sr.job_require_exp" readonly class="form-control form-control-sm" cols="30" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary px-5" @click="applyNow(sr.job_poser, sr.job_id)">Apply</button>
                                     </div>
                                 </div>
                             </div>

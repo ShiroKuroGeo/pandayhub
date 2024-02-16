@@ -90,7 +90,14 @@ function completeHired()
 {
     $back = new user();
 
-    echo $back->completeHired($_POST['id']);
+    echo $back->completeHired($_POST['id'], $_POST['datestarted'], $_POST['update_at']);
+}
+
+function changeStatus()
+{
+    $back = new user();
+
+    echo $back->changeStatus($_POST['id']);
 }
 
 function workCompleted()

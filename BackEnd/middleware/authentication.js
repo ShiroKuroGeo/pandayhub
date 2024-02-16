@@ -44,11 +44,22 @@ createApp({
             data.append("Password", document.getElementById('PasswordLogin').value);
             axios.post('Backend/route/authentication.php', data)
                 .then(function (r) {
-                    if(r.data == 400){
-                        alert('Credentials invalid!');
+                    const v = r.data;
+                    if(v == 3){
+                        window.location.href = 'FrontEnd/users/client/index.php ';
+                    }else if(v == 1){
+                        window.location.href = 'FrontEnd/users/worker/index.php ';
+                    }else if(v == 2){
+                        window.location.href = 'FrontEnd/admin/index.php';
                     }else{
-                        window.location.href = 'FrontEnd/users/view.php ';
+                        alert('No data!');
+                        window.location.href = 'BackEnd/logout.php';
                     }
+                    // if(r.data == 400){
+                    //     alert('Credentials invalid!');
+                    // }else{
+                    //     window.location.href = 'FrontEnd/users/client/view.php ';
+                    // }
                 });
         },
 

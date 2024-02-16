@@ -26,7 +26,7 @@ if (!isset($_SESSION['userId'])) {
 </head>
 
 <body>
-    <div class="container-fluid bg-white p-0 vh-100" id="jobshub">
+    <div class="container-fluid bg-white p-0" id="jobshub">
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <img src="/pandayhub/assets/img/logo.png" class="img-fluid d-none d-sm-block" width="100" height="160">
         </div>
@@ -36,7 +36,7 @@ if (!isset($_SESSION['userId'])) {
         <div class="container-fluid p-0">
             <div class=" position-relative">
                 <div class=" position-relative">
-                    <img class="img-fluid w-100 vh-100 bg-dark" alt="">
+                    <img class="img-fluid w-100 vh-100 bg-primary" alt="">
                     <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(43, 57, 64, .5);">
                         <div class="container">
                             <div class="row justify-content-start">
@@ -44,7 +44,7 @@ if (!isset($_SESSION['userId'])) {
                                     <h1 class="display-3 text-white mb-4">GET YOUR <span class="text-primary">BUILDERS</span> NOW</h1>
                                     <p class="fs-5 fw-medium text-white mb-4 pb-2">The Contruction of is a testament to the hardwok and expertise of
                                         the team, resulting in a sturdy and visually and stunning structure</p>
-                                    <button class="btn btn-primary btn-primary px-5 py-2 rounded shadow" v-if="pandaysLength < 1" data-bs-toggle="modal" data-bs-target="#pandays">
+                                    <button class="btn btn-primary text-dark btn-primary px-5 py-2 rounded shadow" v-if="pandaysLength < 1" data-bs-toggle="modal" data-bs-target="#pandays">
                                         Post profile
                                     </button>
                                     <button class="btn btn-primary btn-primary px-5 py-2 rounded shadow" disabled v-if="pandaysLength > 0" data-bs-toggle="modal" data-bs-target="#pandays">

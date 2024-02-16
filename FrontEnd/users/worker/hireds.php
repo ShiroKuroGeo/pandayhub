@@ -48,6 +48,7 @@ if (!isset($_SESSION['userId'])) {
                                     <th scope="col">Panday Name</th>
                                     <th scope="col">Panday Email</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col">Term</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -64,7 +65,10 @@ if (!isset($_SESSION['userId'])) {
                                         {{j.email}}
                                     </td>
                                     <td>
-                                        Hired
+                                        {{j.status == 1 ? 'Ongoing' : j.status == 5 ? 'Hired' : 'Work Completed'}}
+                                    </td>
+                                    <td>
+                                        {{dateString(j.date_started)}} - {{dateString(j.updated_at)}}
                                     </td>
                                     <td>
                                         <a :href="'chatroom.php?id='+j.cuid" class="btn btn-md me-2 btn-primary text-dark rounded-circle">

@@ -9,6 +9,7 @@ createApp({
             Panday_skill: '',
             searchLoc: '',
             Panday_level: '',
+            id: 0,
         }
     },
     methods: {
@@ -48,7 +49,7 @@ createApp({
             axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     if (r.data == 200) {
-                        alert("Hello");
+                        alert("Successfully Post!");
                         vue.getAllPanday();
                         window.location.reload();
                     }
@@ -71,6 +72,11 @@ createApp({
             axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     vue.deleteHired(id);
+
+                    setInterval(function(){ 
+                        window.location.reload();
+                    }, 1000)
+
                 });
         },
         deleteHired: function (id) {
@@ -111,6 +117,13 @@ createApp({
         },
         getMessageUser: function (id) {
             window.location.href = "http://localhost/pandayhub/frontend/users/chats.php?id=" + id;
+        },
+        round(percentage){
+            var rounded = Math.round(percentage);
+            return rounded;
+        },
+        getId: function (id) {
+            this.id = id;
         },
     },
     created: function () {

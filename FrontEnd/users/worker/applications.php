@@ -73,7 +73,7 @@ if (!isset($_SESSION['userId'])) {
                                         {{j.job_location}}
                                     </td>
                                     <td>
-                                        {{j.projectType}}
+                                        {{j.job_require_exp}}
                                     </td>
                                     <td>
                                         {{j.job_payment}}

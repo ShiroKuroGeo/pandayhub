@@ -103,8 +103,8 @@
                                         <td class="text-capitalize fw-bold">{{dateString(au.create_at)}}</td>
                                         <td>
                                             <div class="row">
-                                                <button class="btn btn-md btn-primary col-5 me-1" @click="updateUsersRestriction(au.userId, 2)">Restric</button>
-                                                <button class="btn btn-md btn-primary col-5 me-1" @click="updateUsersRestriction(au.userId, 1)">Unrestric</button>
+                                                <button class="btn btn-md restriction col-5 me-1" @click="updateUsersRestriction(au.userId, 2)">Restric</button>
+                                                <button class="btn btn-md restriction col-5 me-1" @click="updateUsersRestriction(au.userId, 1)">Unrestric</button>
                                             </div>
                                         </td>
                                     </tr>

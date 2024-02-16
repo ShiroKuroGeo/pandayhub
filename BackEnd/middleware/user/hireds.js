@@ -28,6 +28,7 @@ createApp({
                             firstname: v.firstname,
                             lastname: v.lastname,
                             poserfirst: v.poserfirst,
+                            date_started: v.date_started,
                             poserlast: v.poserlast,
                             cuid: v.cuid,
                             email: v.email,
@@ -47,12 +48,20 @@ createApp({
                 .then(function (r) {
                     if (r.data == 200) {
                         alert('User reported!');
+
+                        setInterval(function () { window.location.reload(); }, 1000);
                     } else {
                         alert('Cannot send the application');
                     }
                 });
         },
-        getId: function(id){
+        dateString(dateString) {
+            var date = new Date(dateString);
+            var options = { weekday: 'long', month: 'long', day: 'numeric' };
+            var formattedDate = date.toLocaleDateString('en-US', options);
+            return formattedDate;
+        },
+        getId: function (id) {
             this.id = id;
         },
         chat(id) {

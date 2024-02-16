@@ -4,7 +4,7 @@
 session_start();
 
 if (!isset($_SESSION['userId'])) {
-    header('location:./index.php');
+    header('location: ../../../index.php');
 }
 ?>
 
@@ -33,8 +33,6 @@ if (!isset($_SESSION['userId'])) {
         <?php
         include('sidebar.php');
         ?>
-
-
         <div class="container-fluid p-0">
             <div class=" position-relative">
                 <div class=" position-relative">
@@ -46,7 +44,7 @@ if (!isset($_SESSION['userId'])) {
                                     <h1 class="display-3 text-white mb-4">GET YOUR <span class="text-primary">BUILDERS</span> NOW</h1>
                                     <p class="fs-5 fw-medium text-white mb-4 pb-2">The Contruction of is a testament to the hardwok and expertise of
                                         the team, resulting in a sturdy and visually and stunning structure</p>
-                                    <button class="btn btn-primary btn-primary px-5 py-2 rounded shadow" data-bs-toggle="modal" data-bs-target="#jobs">
+                                    <button class="btn text-dark btn-primary px-5 py-2 rounded shadow" data-bs-toggle="modal" data-bs-target="#jobs">
                                         Post job
                                     </button>
                                 </div>
@@ -54,8 +52,6 @@ if (!isset($_SESSION['userId'])) {
                         </div>
                     </div>
                 </div>
-
-
                 <div class="row mt-5 ms-5">
                     <div class="col-3 bg-primary mt-5 ms-5 me-5">
                         <div class="wrap mt-2 justify-content-center text-center">

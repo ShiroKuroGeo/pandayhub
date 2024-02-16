@@ -60,7 +60,7 @@ if (!isset($_SESSION['userId'])) {
                                         {{j.hiredlast}} {{j.hiredfirst}}
                                     </td>
                                     <td>
-                                        {{j.status == 1 ? 'Pending' : j.status == 2 ? 'Hired' : 'Decline'}}
+                                        {{j.status == 1 ? 'Pending' : j.status == 5 ? 'Hired' : 'Decline'}}
                                     </td>
                                     <td>
                                         <a :href="'chatroom.php?id='+j.user_hired" class="btn btn-md btn-primary me-3 rounded-circle">
@@ -69,9 +69,19 @@ if (!isset($_SESSION['userId'])) {
                                         <button class="btn btn-md btn-primary me-3 rounded-circle" data-bs-toggle="modal" data-bs-target="#reportUser" @click="getId(j.user_hired)">
                                             <i class="bi bi-exclamation-circle"></i>
                                         </button>
-                                        <button :class="j.status == 1 ? 'btn btn-md btn-primary me-3' : 'btn btn-md btn-primary me-3 visually-hidden'" @click="completeHired(j.user_hired)">
-                                            Complete Hire
-                                        </button>
+                                        <div class="my-3">
+                                            <button :class="j.status == 1 ? 'btn btn-md btn-primary me-3' : 'btn btn-md btn-primary me-3 visually-hidden'" :disabled="datestarted == ''" @click="completeHired(j.user_hired)">
+                                                Complete Hire
+                                            </button>
+                                            <div :class="j.status == 1 ? 'form-control me-3' : 'form-control me-3 visually-hidden'" class="form-group text-start mt-2">
+                                                <label for="">Date Start</label>
+                                                <input type="date" class="form-control" v-model="datestarted">
+                                            </div>
+                                            <div :class="j.status == 1 ? 'form-control me-3' : 'form-control me-3 visually-hidden'" class="form-group text-start mt-2">
+                                                <label for="">Date End</label>
+                                                <input type="date" class="form-control" v-model="update_at">
+                                            </div>
+                                        </div>
                                         <button :class="j.status == 5 ? 'btn btn-md btn-primary me-3' : 'btn btn-md btn-primary me-3 visually-hidden'" @click="workCompleted(j.user_hired)">
                                             Work Completed
                                         </button>

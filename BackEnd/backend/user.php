@@ -16,6 +16,10 @@ class user
     {
         return $this->userProfileFunction($userId);
     }
+    public function changeStatus($userId)
+    {
+        return $this->changeStatusFunction($userId);
+    }
     public function applieJob($userId)
     {
         return $this->applieJobFunction($userId);
@@ -44,9 +48,9 @@ class user
     {
         return $this->workerFunction($userId);
     }
-    public function completeHired($userId)
+    public function completeHired($userId, $datestarted, $update_at)
     {
-        return $this->completeHiredFunction($userId);
+        return $this->completeHiredFunction($userId, $datestarted, $update_at);
     }
     public function workCompleted($userId)
     {
@@ -206,6 +210,29 @@ class user
                 $query = $db->getCon()->prepare($this->userProfileQuery());
                 $query->execute(array($userId));
                 return json_encode($query->fetchAll());
+            } else {
+                return 501;
+            }
+        } catch (PDOException $th) {
+            throw $th;
+        }
+    }
+
+    private function changeStatusFunction($userId)
+    {
+        try {
+            $db = new database();
+            if ($db->getStatus()) {
+                $query = $db->getCon()->prepare($this->changeStatusQuery());
+                $query->execute(array($userId));
+                $result = $query->fetch();
+                $db->closeConnection();
+
+                if (!$result) {
+                    return 200;
+                } else {
+                    return 401;
+                }
             } else {
                 return 501;
             }
@@ -503,13 +530,13 @@ class user
         }
     }
 
-    private function completeHiredFunction($userId)
+    private function completeHiredFunction($userId, $datestarted, $update_at)
     {
         try {
             $db = new database();
             if ($db->getStatus()) {
                 $query = $db->getCon()->prepare($this->completeHiredQuery());
-                $query->execute(array($userId));
+                $query->execute(array($datestarted, $update_at, $userId));
                 $result = $query->fetch();
 
                 if (!$result) {
@@ -622,7 +649,7 @@ class user
 
     private function getAllHiredsQuery()
     {
-        return "SELECT u.*,client.userId as cuid, client.firstname as poserfirst, client.lastname as poserlast, h.hired_id, h.status, h.created_at, h.updated_at FROM `hireds` AS h INNER JOIN `users` AS u ON h.user_hired = u.userId INNER JOIN `users` AS client ON client.userId = h.user_id WHERE h.user_hired = ? OR h.user_id = ? ORDER BY h.created_at desc;";
+        return "SELECT u.*,client.userId as cuid, client.firstname as poserfirst, client.lastname as poserlast, h.hired_id, h.status, h.created_at, h.updated_at, h.date_started FROM `hireds` AS h INNER JOIN `users` AS u ON h.user_hired = u.userId INNER JOIN `users` AS client ON client.userId = h.user_id WHERE h.user_hired = ? OR h.user_id = ? ORDER BY h.created_at desc;";
     }
 
     private function deleteApplicantQuery()
@@ -632,7 +659,12 @@ class user
 
     private function completeHiredQuery()
     {
-        return "UPDATE `hireds` SET `status` = 5 WHERE `user_hired` = ?";
+        return "UPDATE `hireds` SET `status` = 5, `date_started` = ?, `updated_at` = ? WHERE `user_hired` = ?";
+    }
+
+    private function changeStatusQuery()
+    {
+        return "UPDATE `panday` SET `status` = 1 WHERE `user_id` = ?";
     }
 
     private function workCompletedQuery()

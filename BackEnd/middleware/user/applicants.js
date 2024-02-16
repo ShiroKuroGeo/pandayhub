@@ -11,6 +11,8 @@ createApp({
             hirerDatasRate: [],
             workerDatasHistory: [],
             reasonOfReport: '',
+            datestarted: '',
+            update_at: '',
             id: 0,
             rate: 0
         }
@@ -144,6 +146,7 @@ createApp({
                             poserLast: v.poserLast,
                             picture: v.picture,
                             job_title: v.job_title,
+                            date_started: v.date_started,
                             job_project: v.job_project,
                             job_location: v.job_location,
                             job_require_exp: v.job_require_exp,
@@ -155,21 +158,24 @@ createApp({
                 });
         },
         getHireUser: function (id) {
-            const vue = this;
-            var data = new FormData();
-            data.append("METHOD", "hiredsPanday");
-            data.append("id", id);
-            axios.post('../../../Backend/route/user.php', data)
-                .then(function (r) {
-                    vue.deleteHired(id);
-                    window.location.reload();
-                });
+            alert(id);
+            // const vue = this;
+            // var data = new FormData();
+            // data.append("METHOD", "hiredsPanday");
+            // data.append("id", id);
+            // axios.post('../../../Backend/route/user.php', data)
+            //     .then(function (r) {
+            //         vue.deleteHired(id);
+            //         window.location.reload();
+            //     });
         },
         completeHired: function (id) {
             const vue = this;
             var data = new FormData();
             data.append("METHOD", "completeHired");
             data.append("id", id);
+            data.append("datestarted", vue.datestarted);
+            data.append("update_at", vue.update_at);
             axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     window.location.reload();
@@ -183,11 +189,21 @@ createApp({
             axios.post('../../../Backend/route/user.php', data)
                 .then(function (r) {
                     if (r.data == 200) {
-                        window.location.href = 'rate.php';
+                        vue.changeStatus(id);
                     } else {
                         alert('Something is wrong!');
                     }
                 });
+        },
+        changeStatus(id) {
+            const vue = this;
+            var data = new FormData();
+            data.append("METHOD", "changeStatus");
+            data.append("id", id);
+            axios.post('../../../Backend/route/user.php', data)
+                .then(function (r) {
+                    window.location.href = 'rate.php';s
+                })
         },
         rateme: function (id) {
             const vue = this;

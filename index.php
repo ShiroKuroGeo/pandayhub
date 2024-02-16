@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['userId'])) {
-  header("location: users/client/index.php");
+  header("location: FrontEnd/users/client/index.php");
 }
 ?>
 <!DOCTYPE html>

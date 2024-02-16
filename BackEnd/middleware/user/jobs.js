@@ -139,6 +139,21 @@ createApp({
                     }
                 });
         },
+        getIdGetJob(id) {
+            const vue = this;
+            var data = new FormData();
+            data.append("METHOD", "applynow");
+            data.append("job_poser", job_poser);
+            data.append("job_id", id);
+            axios.post('../../../Backend/route/user.php', data)
+                .then(function (r) {
+                    if (r.data == 200) {
+                        alert('Applied');
+                    } else if (r.data == 400) {
+                        alert('Already Applied!');
+                    }
+                });
+        },
     },
     created: function () {
         this.jobs();
