@@ -53,16 +53,16 @@ if (!isset($_SESSION['userId'])) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(j, index) of hireds">
+                                <tr v-for="(j, index) of hiredsToWorker">
                                     <th scope="row">{{1+index++}}</th>
                                     <td>
                                         <img :src="'/pandayhub/Assets/img/'+ j.profile" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
                                     </td>
                                     <td>
-                                        {{j.poserlast}} {{j.poserfirst}}
+                                        {{j.lclient}}, {{j.fclient}}
                                     </td>
                                     <td>
-                                        {{j.email}}
+                                        {{j.lworker}} {{j.fworker}}
                                     </td>
                                     <td>
                                         {{j.status == 1 ? 'Ongoing' : j.status == 5 ? 'Hired' : 'Work Completed'}}

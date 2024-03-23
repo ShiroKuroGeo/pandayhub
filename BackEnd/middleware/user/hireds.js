@@ -4,11 +4,36 @@ createApp({
     data() {
         return {
             hireds: [],
+            hiredsToWorker: [],
             reasonOfReport: '',
             id: 0
         }
     },
     methods: {
+        allHiredsToWorker: function () {
+            const vue = this;
+            var data = new FormData();
+            data.append("METHOD", "allHiredsToWorker");
+            axios.post('../../../Backend/route/user.php', data)
+                .then(function (r) {
+                    vue.hiredsToWorker = [];
+
+                    for (var v of r.data) {
+                        vue.hiredsToWorker.push({
+                            profile: v.profile,
+                            cuid: v.cuid,
+                            fworker: v.fworker,
+                            lworker: v.lworker,
+                            fclient: v.fclient,
+                            lclient: v.lclient,
+                            date_started: v.date_started,
+                            status: v.status,
+                            created_at: v.created_at,
+                            updated_at: v.updated_at,
+                        })
+                    }
+                });
+        },
         getAllHireds: function () {
             const vue = this;
             var data = new FormData();
@@ -74,5 +99,6 @@ createApp({
     },
     created: function () {
         this.getAllHireds();
+        this.allHiredsToWorker();
     }
 }).mount('#hiredshub')

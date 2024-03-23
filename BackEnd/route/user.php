@@ -113,6 +113,13 @@ function getAllHireds()
 
     echo $back->getAllHireds($_SESSION['userId']);
 }
+
+function allHiredsToWorker()
+{
+    $back = new user();
+
+    echo $back->allHiredsToWorker($_SESSION['userId']);
+}
 function applieJob()
 {
     $back = new user();

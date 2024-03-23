@@ -101,6 +101,7 @@ createApp({
                         if (v.userId == id) {
                             vue.selectedPanday.push({
                                 location: v.Panday_location,
+                                job_title: v.panday_exp,
                                 skill: v.Panday_skill,
                                 level: v.Panday_level,
                                 created_at: v.created_at,

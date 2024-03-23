@@ -57,7 +57,7 @@ if (!isset($_SESSION['userId'])) {
                                     </div>
                                     <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                                         <div class="d-flex mb-3">
-                                            <button class="btn btn-primary text-dark me-2" :disabled="p.status == 2" data-bs-toggle="modal" data-bs-target="#getIdS" @click="getId(p.userId)">{{p.status == 1 ? 'Hire' : 'Hired'}}</button>
+                                            <button class="btn btn-primary text-dark me-2" :disabled="p.status == 2" data-bs-toggle="modal" data-bs-target="#getIdS" @click="getId(p.userId)">{{p.status != 1 ? 'Hire' : 'Hired'}}</button>
                                             <button class="btn btn-primary text-dark me-2" @click="getUserById(p.userId)" data-bs-toggle="modal" data-bs-target="#viewManagement"><i class="bi bi-eye" title="View"></i></button>
                                             <a :href="'chatroom.php?id='+p.userId" class="btn btn-sm btn-primary text-dark"><i class="bi bi-chat-dots col-2"></i></a>
                                         </div>
@@ -94,7 +94,8 @@ if (!isset($_SESSION['userId'])) {
                                     Owner: {{so.firstname}}, {{so.lastname}}<br>
                                     Where: {{so.location}}<br>
                                     Skills: {{so.skill}}<br>
-                                    Expertise: {{so.level}}<br>
+                                    Project Type: {{so.level}}<br>
+                                    Expertise: {{so.job_title}}<br>
                                     Date Registered: {{so.created_at}}<br>
                                 </div>
                                 <div class="modal-footer">

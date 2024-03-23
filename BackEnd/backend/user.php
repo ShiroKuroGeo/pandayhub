@@ -84,6 +84,11 @@ class user
         return $this->getAllHiredsFunction($userId);
     }
 
+    public function allHiredsToWorker($userId)
+    {
+        return $this->allHiredsToWorkerFunction($userId);
+    }
+
     public function applynow($userId, $job_poser, $job_id)
     {
         return $this->applynowFunction($userId, $job_poser, $job_id);
@@ -511,6 +516,22 @@ class user
         }
     }
 
+    private function allHiredsToWorkerFunction($userId)
+    {
+        try {
+            $db = new database();
+            if ($db->getStatus()) {
+                $query = $db->getCon()->prepare($this->allHiredsToWorkerQuery());
+                $query->execute(array($userId));
+                return json_encode($query->fetchAll());
+            } else {
+                return 501;
+            }
+        } catch (PDOException $th) {
+            throw $th;
+        }
+    }
+
     private function myPostAsPandayFunction($userId)
     {
         try {
@@ -666,7 +687,7 @@ class user
 
     private function pandayQuery()
     {
-        return "SELECT p.status, p.Panday_location, p.Panday_skill, p.Panday_level, p.created_at, p.update_at, u.userId, u.profile, u.firstname, u.lastname, u.rating, u.no_of_rating FROM panday as p INNER JOIN users as u on p.user_id = u.userId";
+        return "SELECT p.status, p.Panday_location, p.Panday_skill, p.Panday_level, p.panday_exp,p.created_at, p.update_at, u.userId, u.profile, u.firstname, u.lastname, u.rating, u.no_of_rating FROM panday as p INNER JOIN users as u on p.user_id = u.userId";
     }
 
     private function storePandayQuery()
@@ -717,6 +738,11 @@ class user
     private function getAllHiredsQuery()
     {
         return "SELECT u.*,client.userId as cuid, client.firstname as poserfirst, client.lastname as poserlast, h.appli_id, h.status, h.created_at, h.updated_at, h.status as appstats FROM `applicants` AS h INNER JOIN `users` AS u ON h.appliUser_id = u.userId INNER JOIN `users` AS client ON client.userId = h.poser_id WHERE h.appliUser_id = ? OR h.poser_id = ? ORDER BY h.created_at desc;";
+    }
+
+    private function allHiredsToWorkerQuery()
+    {
+        return "SELECT client.profile, h.user_id as cuid, u.firstname as fworker, u.lastname as lworker, client.firstname as fclient, client.lastname as lclient, h.date_started, h.status, h.created_at, h.updated_at FROM `hireds` AS h INNER JOIN `users` AS u ON h.user_id = u.userId INNER JOIN `users` AS client ON client.userId = h.user_hired WHERE h.user_hired = ? ORDER BY h.created_at DESC;";
     }
 
     private function deleteApplicantQuery()

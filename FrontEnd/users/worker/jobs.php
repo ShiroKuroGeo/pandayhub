@@ -111,7 +111,7 @@ if (!isset($_SESSION['userId'])) {
                                             </div>
                                             <div class="mb-3 mt-3">
                                                 <label for="Password" class="me-3">Experience</label>
-                                                <textarea value="sr.job_require_exp" readonly class="form-control form-control-sm" cols="30" rows="3"></textarea>
+                                                <textarea :value="sr.job_require_exp" readonly class="form-control form-control-sm" cols="30" rows="3"></textarea>
                                             </div>
                                         </div>
                                     </div>
