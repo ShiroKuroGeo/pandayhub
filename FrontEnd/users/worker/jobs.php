@@ -62,10 +62,10 @@ if (!isset($_SESSION['userId'])) {
                                     <div class="col-sm-12 col-md-8 d-flex align-items-center">
                                         <img class="flex-shrink-0 img-fluid border rounded" :src="'/pandayhub/Assets/img/' + j.picture" alt="" style="width: 80px; height: 80px;">
                                         <div class="text-start ps-4">
-                                            <h5 class="mb-3 text-primary">{{j.job_title}}</h5>
-                                            <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{j.job_location}}</span>
-                                            <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>{{j.job_payment}} {{j.job_project == 'Daily' ? 'Per Day': 'Amount'}} </span>
-                                            <h6 class="text-truncate text-primary mt-2">Experience: {{j.job_require_exp}}</h6>
+                                            <h5 class="mb-3 text-primary text-capitalize">{{j.job_title}}</h5>
+                                            <span class="text-truncate me-3 text-capitalize"><i class="fa fa-map-marker-alt text-primary me-2 text-capitalize"></i>{{j.job_location}}</span>
+                                            <span class="text-truncate me-0 text-capitalize"><i class="far fa-money-bill-alt text-primary me-2 text-capitalize"></i>{{j.job_payment}} {{j.job_project == 'Daily' ? 'Per Day': 'Amount'}} </span>
+                                            <h6 class="text-truncate text-primary mt-2 text-capitalize">Experience: {{j.job_require_exp}}</h6>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">

@@ -34,7 +34,10 @@ if ($_GET['id'] == $_SESSION['userId']) {
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <img src="/pandayhub/assets/img/logo.png" class="img-fluid d-none d-sm-block" width="100" height="160">
         </div>
-        <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <?php
+        include('sidebar.php');
+        ?>
+        <!-- <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
             <a href="index.php" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
                 <h1 class="m-0 text-primary">
                     <img src="/pandayhub/assets/img/logo.png" class="img-fluid d-none d-sm-block" width="100" height="160">
@@ -52,7 +55,7 @@ if ($_GET['id'] == $_SESSION['userId']) {
                     <a href="applications.php" class="<?php echo $_SERVER['SCRIPT_NAME'] == '/pandayhub/frontend/users/applicants.php' ? 'nav-item nav-link active' : 'nav-item nav-link' ?>">Applicant</a>
                     <a href="hireds.php" class="<?php echo $_SERVER['SCRIPT_NAME'] == '/pandayhub/frontend/users/hireds.php' ? 'nav-item nav-link active' : 'nav-item nav-link' ?>">Hire</a>
                     <div class="nav-item dropstart">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Jovet</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><?php echo $_SESSION['fullname'] ?></a>
                         <div class="dropdown-menu rounded-0 m-0">
                             <li><a class="dropdown-item " href="/pandayhub/FrontEnd/users/profiles.php" id="post">Profile</a></li>
                             <li><a class="dropdown-item " href="/pandayhub/FrontEnd/users/chats.php" id="post">Messages</a></li>
@@ -64,7 +67,7 @@ if ($_GET['id'] == $_SESSION['userId']) {
                 <a href="" data-bs-toggle="modal" data-bs-target="#jobs" class="<?php echo $_SERVER['SCRIPT_NAME'] == '/pandayhub/FrontEnd/users/jobs.php' ? 'btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block text-dark' : 'btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block visually-hidden text-dark' ?> ">Post A Job<i class="fa fa-arrow-right ms-3"></i></a>
                 <a href="" data-bs-toggle="modal" data-bs-target="#pandays" class="<?php echo $_SERVER['SCRIPT_NAME'] == '/pandayhub/FrontEnd/users/pandays.php' ? 'btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block text-dark' : 'btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block visually-hidden text-dark' ?>">Post Panday<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
-        </nav>
+        </nav> -->
         <div class="modal fade mt-1" id="jobs">
             <div class="modal-dialog d-flex modal-dialog-center">
                 <div class="modal-content" style="background-color: #2C2727">

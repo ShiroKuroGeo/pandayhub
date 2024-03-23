@@ -153,6 +153,7 @@ createApp({
                             projectType: v.projectType,
                             job_payment: v.job_payment,
                             job_status: v.job_status,
+                            status: v.status,
                         })
                     }
                 });

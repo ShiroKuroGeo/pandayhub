@@ -68,7 +68,7 @@ if (!isset($_SESSION['userId'])) {
                                         {{j.status == 1 ? 'Ongoing' : j.status == 5 ? 'Hired' : 'Work Completed'}}
                                     </td>
                                     <td>
-                                        {{dateString(j.date_started)}} - {{dateString(j.updated_at)}}
+                                        {{ j.date_started == null ? 'No Date Yet' : dateString(j.date_started) }} - {{ j.updated_at == null ? 'No Date Yet' : dateString(j.updated_at)}}
                                     </td>
                                     <td>
                                         <a :href="'chatroom.php?id='+j.cuid" class="btn btn-md me-2 btn-primary text-dark rounded-circle">

@@ -51,11 +51,12 @@ if (!isset($_SESSION['userId'])) {
                                     <th scope="col">Location</th>
                                     <th scope="col">Project Type</th>
                                     <th scope="col">Payment</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="text-capitalize">
-                                <tr v-for="(j, index) of workerApplications">
+                                <tr v-for="(j, index) of workerApplications" :class="j.appstats == 1 ? 'bg-info text-white': j.appstats == 2 ? 'bg-primary text-white' : 'bg-danger text-white'">
                                     <th scope="row">{{1+index++}}</th>
                                     <td>
                                         <img :src="'/pandayhub/Assets/img/'+ j.picture" style="width: 60px; height: 60px" class="rounded-circle">
@@ -77,6 +78,9 @@ if (!isset($_SESSION['userId'])) {
                                     </td>
                                     <td>
                                         {{j.job_payment}}
+                                    </td>
+                                    <td>
+                                        {{j.appstats == 1 ? 'Pending': j.appstats == 2 ? 'Hired' : 'Decline'}}
                                     </td>
                                     <td>
                                         <a :href="'chatroom.php?id='+j.appliUser_id" class="btn btn-md btn-primary me-3 rounded-circle">

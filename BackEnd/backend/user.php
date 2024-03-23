@@ -7,10 +7,17 @@ class user
     {
         return $this->pandayFunction();
     }
-
     public function jobs()
     {
         return $this->jobsFunction();
+    }
+    public function getAllBestPanday()
+    {
+        return $this->getAllBestPandayFunction();
+    }
+    public function getHighestPayment()
+    {
+        return $this->getHighestPaymentFunction();
     }
     public function userProfile($userId)
     {
@@ -107,6 +114,11 @@ class user
         return $this->updateInformationFunction($userId, $picture, $firstname, $lastname, $email, $phn1, $phn2);
     }
 
+    public function decline($id)
+    {
+        return $this->declineFuntion($id);
+    }
+
     private function storePandayFunction($user_id, $Panday_location, $Panday_skill, $Panday_level, $exp)
     {
         try {
@@ -160,6 +172,38 @@ class user
             if ($db->getStatus()) {
                 $query = $db->getCon()->prepare($this->applieJobQuery());
                 $query->execute(array($userId));
+                return json_encode($query->fetchAll());
+            } else {
+                return 501;
+            }
+        } catch (PDOException $th) {
+            throw $th;
+        }
+    }
+
+    private function getAllBestPandayFunction()
+    {
+        try {
+            $db = new database();
+            if ($db->getStatus()) {
+                $query = $db->getCon()->prepare($this->getAllBestPandayQuery());
+                $query->execute();
+                return json_encode($query->fetchAll());
+            } else {
+                return 501;
+            }
+        } catch (PDOException $th) {
+            throw $th;
+        }
+    }
+    
+    private function getHighestPaymentFunction()
+    {
+        try {
+            $db = new database();
+            if ($db->getStatus()) {
+                $query = $db->getCon()->prepare($this->getHighestPaymentQuery());
+                $query->execute();
                 return json_encode($query->fetchAll());
             } else {
                 return 501;
@@ -597,6 +641,29 @@ class user
         }
     }
 
+    private function declineFuntion($id)
+    {
+        try {
+            $db = new Database();
+            if ($db->getStatus()) {
+
+                $stmt = $db->getCon()->prepare($this->DeclineQuery());
+                $stmt->execute(array($id));
+                $result = $stmt->fetch();
+
+                if (!$result) {
+                    return 200;
+                } else {
+                    return 400;
+                }
+            } else {
+                return "NoDatabaseConnection";
+            }
+        } catch (PDOException $th) {
+            return $th;
+        }
+    }
+
     private function pandayQuery()
     {
         return "SELECT p.status, p.Panday_location, p.Panday_skill, p.Panday_level, p.created_at, p.update_at, u.userId, u.profile, u.firstname, u.lastname, u.rating, u.no_of_rating FROM panday as p INNER JOIN users as u on p.user_id = u.userId";
@@ -649,7 +716,7 @@ class user
 
     private function getAllHiredsQuery()
     {
-        return "SELECT u.*,client.userId as cuid, client.firstname as poserfirst, client.lastname as poserlast, h.hired_id, h.status, h.created_at, h.updated_at, h.date_started FROM `hireds` AS h INNER JOIN `users` AS u ON h.user_hired = u.userId INNER JOIN `users` AS client ON client.userId = h.user_id WHERE h.user_hired = ? OR h.user_id = ? ORDER BY h.created_at desc;";
+        return "SELECT u.*,client.userId as cuid, client.firstname as poserfirst, client.lastname as poserlast, h.appli_id, h.status, h.created_at, h.updated_at, h.status as appstats FROM `applicants` AS h INNER JOIN `users` AS u ON h.appliUser_id = u.userId INNER JOIN `users` AS client ON client.userId = h.poser_id WHERE h.appliUser_id = ? OR h.poser_id = ? ORDER BY h.created_at desc;";
     }
 
     private function deleteApplicantQuery()
@@ -695,6 +762,10 @@ class user
     {
         return "DELETE FROM `jobs` WHERE `job_id` = ?";
     }
+    private function DeclineQuery()
+    {
+        return "UPDATE `applicants` SET `status` = 3 WHERE `appliUser_id` = ?";
+    }
     private function applieJobQuery()
     {
         return 'SELECT ap.*, jo.picture, jo.job_title, jo.job_project, jo.job_location, jo.job_require_exp, jo.projectType, jo.job_payment, jo.job_status, poser.firstname as poserfirst, poser.lastname as poserLast FROM `applicants` AS ap INNER JOIN `jobs` AS jo INNER JOIN `users` AS poser INNER JOIN `users` AS appli ON ap.poser_id = poser.userId AND ap.appliUser_id = appli.userId AND ap.job_id = jo.job_id WHERE ap.appliUser_id = ? ORDER BY ap.created_at DESC';
@@ -710,5 +781,13 @@ class user
     private function ratemeQuery()
     {
         return 'UPDATE `users` SET `rating`= `rating` + ?, `no_of_rating`= `no_of_rating` + 1 WHERE `userId` = ?';
+    }
+    private function getAllBestPandayQuery()
+    {
+        return 'SELECT * FROM `users` ORDER BY `rating` DESC LIMIT 4';
+    }
+    private function getHighestPaymentQuery()
+    {
+        return 'SELECT * FROM `jobs` ORDER BY `job_payment` DESC LIMIT 4';
     }
 }

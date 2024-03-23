@@ -132,6 +132,24 @@ function myPostAsJob()
 
     echo $back->myPostAsJob($_SESSION['userId']);
 }
+function getAllBestPanday()
+{
+    $back = new user();
+
+    echo $back->getAllBestPanday();
+}
+function getHighestPayment()
+{
+    $back = new user();
+
+    echo $back->getHighestPayment();
+}
+function decline()
+{
+    $back = new user();
+
+    echo $back->decline($_POST['id']);
+}
 function hirer()
 {
     $back = new user();

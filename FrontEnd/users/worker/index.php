@@ -55,31 +55,18 @@ if (!isset($_SESSION['userId'])) {
                         </div>
                     </div>
                 </div>
-                <div class="row mt-5 ms-5">
-                    <div class="col-3 bg-primary mt-5 ms-5 me-5">
-                        <div class="wrap mt-2 justify-content-center text-center">
-                            <img src="/pandayhub/assets/img/copecod.webp" alt="" height="300" width="350">
-                            <h1 class="text-primary">COPECOD</h1>
-                            <p class="text-primary">A Cape Cod house is a low, broad, single or double-story frame building with a moderately-steep-pitched gabled roof,
-                                a large central chimney, and very little ornamentation.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-3 bg-primary mt-5 ms-5 me-5">
-                        <div class="wrap mt-2 justify-content-center text-center">
-                            <img src="/pandayhub/assets/img/cabin.jpg" alt="" height="300" width="350">
-                            <h1 class="text-primary">CABIN</h1>
-                            <p class="text-primary">A cabin house today is that and more. The key difference between the two remains the location.
-                                A cabin house is always constructed in a lesser populated area with minimum intervention.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-3 mt-5 bg-primary ms-5">
-                        <div class="wrap mt-2 justify-content-center text-center">
-                            <img src="/pandayhub/assets/img/colonial.jpeg" alt="" height="300" width="350">
-                            <h1 class="text-primary">COLONIAL</h1>
-                            <p class="text-primary">Colonial home is an architectural style that can be found in neighborhoods all across the United States. From California to the Carolinas,
-                                different iterations of these homes still capture the eye of buyers.</p>
+                <div class="row p-5 mt-5 ms-5 d-flex justify-content-evenly">
+                    <h1 class="mb-5">Highest Payment</h1>
+                    <div class="col-lg-2 col-12 border mx-4 shadow bg-dark" v-for="j of highestPayment">
+                        <img :src="'/pandayhub/assets/img/' + j.picture" class="card-img-top mt-3" height="150" width="150" alt="...">
+                        <div class="card-body text-primary">
+                            <h5 class="card-title text-primary text-capitalize">{{j.job_title}}</h5>
+                            <p class="card-text text-capitalize">
+                                {{j.job_project}}<br>
+                                {{j.job_location}}<br>
+                                {{j.projectType}}
+                                {{j.job_payment}}
+                            </p>
                         </div>
                     </div>
                 </div>

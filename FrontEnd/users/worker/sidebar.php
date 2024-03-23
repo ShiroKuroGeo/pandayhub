@@ -16,7 +16,7 @@
 
         </div>
         <div class="navbar-nav dropdown me-5">
-            <a href="#" class="nav-link fw-bold dropdown-toggle" data-bs-toggle="dropdown">Jovet</a>
+            <a href="#" class="nav-link fw-bold dropdown-toggle" data-bs-toggle="dropdown"><?php echo $_SESSION['lastname'] . ', ' . $_SESSION['firstname']; ?></a>
             <div class="dropdown-menu">
                 <li><a class="dropdown-item" href="profiles.php" id="post">Profile</a></li>
                 <li><a class="dropdown-item" href="chats.php" id="post">Messages</a></li>

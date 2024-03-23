@@ -15,7 +15,7 @@ createApp({
             const vue = this;
             var data = new FormData();
             data.append("METHOD", "getAllWhoMessage");
-            axios.post('../../Backend/route/chat.php', data)
+            axios.post('/pandayhub/Backend/route/chat.php', data)
                 .then(function (r) {
                     vue.allUsers = [];
 
@@ -42,7 +42,7 @@ createApp({
             data.append("METHOD", "sendchat");
             data.append("id", this.id);
             data.append("message", this.message);
-            axios.post('../../Backend/route/chat.php', data)
+            axios.post('/pandayhub/Backend/route/chat.php', data)
                 .then(function (r) {
                     if (r.data == 400) {
                         alert(r.data);
@@ -58,7 +58,7 @@ createApp({
             var data = new FormData();
             data.append("METHOD", "getAllMessage");
             data.append("id", chatID);
-            axios.post('../../Backend/route/chat.php', data)
+            axios.post('/pandayhub/Backend/route/chat.php', data)
                 .then(function (r) {
                     vue.allMessage = [];
 

@@ -11,7 +11,7 @@
         <div class="navbar-nav mx-auto p-4 p-lg-0">
             <a href="index.php" class="fw-bold text-primary<?php echo $_SERVER['SCRIPT_NAME'] == '/pandayhub/frontend/users/index.php' ? 'nav-item nav-link mx-3 active' : 'nav-item nav-link mx-3' ?>">Home</a>
             <a href="jobs.php" class="fw-bold text-primary<?php echo $_SERVER['SCRIPT_NAME'] == '/pandayhub/frontend/users/jobs.php' ? 'nav-item nav-link mx-3 active' : 'nav-item nav-link mx-3' ?>">Panday</a>
-            <!-- <a href="hireds.php" class="fw-bold text-primary<?php echo $_SERVER['SCRIPT_NAME'] == '/pandayhub/frontend/users/hireds.php' ? 'nav-item nav-link mx-3 active' : 'nav-item nav-link mx-3' ?>">Notification</a> -->
+            <a href="hireds.php" class="fw-bold text-primary<?php echo $_SERVER['SCRIPT_NAME'] == '/pandayhub/frontend/users/hireds.php' ? 'nav-item nav-link mx-3 active' : 'nav-item nav-link mx-3' ?>">Notification</a>
             <a href="applications.php" class="fw-bold text-primary<?php echo $_SERVER['SCRIPT_NAME'] == '/pandayhub/frontend/users/applications.php' ? 'nav-item nav-link mx-3 me-5 active' : 'nav-item nav-link mx-3 me-5' ?>">Applicants</a>
 
         </div>

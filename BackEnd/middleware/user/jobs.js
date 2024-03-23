@@ -15,7 +15,9 @@ createApp({
             pandaysLength: 0,
             searchLoc: '',
             getJobs: [],
+            bestPanday: [],
             selectedIdJob: [],
+            highestPayment: [],
         }
     },
     methods: {
@@ -102,6 +104,44 @@ createApp({
                     }
                 });
         },
+        getAllBestPanday() {
+            const vue = this;
+            var data = new FormData();
+            data.append("METHOD", "getAllBestPanday");
+            axios.post('../../../Backend/route/user.php', data)
+                .then(function (r) {
+                    vue.bestPanday = [];
+
+                    for (var v of r.data) {
+                        vue.bestPanday.push({
+                            profile: v.profile,
+                            fullname: v.lastname +', '+ v.firstname,
+                            email: v.email,
+                            userId: v.userId,
+                        })
+                    }
+                });
+        },
+        getHighestPayment() {
+            const vue = this;
+            var data = new FormData();
+            data.append("METHOD", "getHighestPayment");
+            axios.post('../../../Backend/route/user.php', data)
+                .then(function (r) {
+                    vue.highestPayment = [];
+
+                    for (var v of r.data) {
+                        vue.highestPayment.push({
+                            picture: v.picture,
+                            job_title: v.job_title,
+                            job_project: v.job_project,
+                            job_location: v.job_location,
+                            projectType: v.projectType,
+                            job_payment: v.job_payment,
+                        })
+                    }
+                });
+        },
         storePanday() {
             if (this.Panday_location != null && this.Panday_skill != null && this.Panday_level != null && this.panday_exp != null) {
                 const vue = this;
@@ -157,7 +197,9 @@ createApp({
     },
     created: function () {
         this.jobs();
+        this.getHighestPayment();
         this.getAllPanday();
+        this.getAllBestPanday();
     },
     computed: {
         searchJob() {

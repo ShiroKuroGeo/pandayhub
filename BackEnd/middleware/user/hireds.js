@@ -19,21 +19,15 @@ createApp({
 
                     for (var v of r.data) {
                         vue.hireds.push({
-                            hired_id: v.hired_id,
-                            userId: v.userId,
-                            status: v.status,
-                            created_at: v.created_at,
-                            updated_at: v.updated_at,
-                            profile: v.profile,
+                            appli_id: v.appli_id,
+                            email: v.email,
                             firstname: v.firstname,
                             lastname: v.lastname,
                             poserfirst: v.poserfirst,
-                            date_started: v.date_started,
                             poserlast: v.poserlast,
-                            cuid: v.cuid,
-                            email: v.email,
-                            phoneNumber: v.phoneNumber,
-                            phoneNumber2: v.phoneNumber2,
+                            profile: v.profile,
+                            rating: v.rating,
+                            appstats: v.appstats,
                         })
                     }
                 });
@@ -53,6 +47,16 @@ createApp({
                     } else {
                         alert('Cannot send the application');
                     }
+                });
+        },
+        decline: function (id) {
+            const vue = this;
+            var data = new FormData();
+            data.append("METHOD", "decline");
+            data.append("id", id);
+            axios.post('../../../Backend/route/user.php', data)
+                .then(function (r) {
+                    alert(r.data);
                 });
         },
         dateString(dateString) {
